@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- My Model Name -->
+        <record model="ir.sequence" id="job_applicant_code_sequence">
+            <field name="name">Job Applicant</field>
+            <field name="code">job.applicant</field>
+            <field name="implementation">standard</field>
+            <field name="active">TRUE</field>
+            <field name="prefix"></field>
+            <field name="padding">8</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">0</field>
+        </record>
+
+        <record model="ir.sequence" id="hr_applicant_code_sequence">
+            <field name="name">Hr Applicant</field>
+            <field name="code">hr.applicant</field>
+            <field name="implementation">standard</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">%(y)s</field>
+            <field eval="1" name="number_next"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">0</field>
+        </record>
+
+        <record model="ir.sequence" id="venue_code_sequence">
+            <field name="name">Venue</field>
+            <field name="code">venue</field>
+            <field name="implementation">standard</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">Venue-</field>
+            <field name="padding">6</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">0</field>
+        </record>
+
+        <record model="ir.sequence" id="video_code_sequence">
+            <field name="name">Video</field>
+            <field name="code">video</field>
+            <field name="implementation">standard</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">Video-</field>
+            <field name="padding">6</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">0</field>
+        </record>
+
+        <record model="ir.sequence" id="first_code_sequence">
+            <field name="name">First Shortlist</field>
+            <field name="code">first.shortlist</field>
+            <field name="implementation">standard</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">Shortlist1-</field>
+            <field name="padding">6</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">0</field>
+        </record>
+
+        <record model="ir.sequence" id="second_code_sequence">
+            <field name="name">Second Shortlist</field>
+            <field name="code">second.shortlist</field>
+            <field name="implementation">standard</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">Shortlist2-</field>
+            <field name="padding">6</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">0</field>
+        </record>
+
+        <record model="ir.sequence" id="final_code_sequence">
+            <field name="name">Final Shortlist</field>
+            <field name="code">final.shortlist</field>
+            <field name="implementation">standard</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">Shortlist3-</field>
+            <field name="padding">6</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">0</field>
+        </record>
+
+        <record model="ir.sequence" id="written_admit_code_sequence">
+            <field name="name">Written Admit Card</field>
+            <field name="code">written.admit.card</field>
+            <field name="implementation">standard</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">WAD-</field>
+            <field name="padding">6</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">0</field>
+        </record>
+
+        <record model="ir.sequence" id="job_applicant_written_code_sequence">
+            <field name="name">Job Applicant Written</field>
+            <field name="code">job.applicant.written.mark</field>
+            <field name="implementation">standard</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">WEM-</field>
+            <field name="padding">6</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">0</field>
+        </record>
+
+        <record model="ir.sequence" id="job_applicant_written_entry_code_sequence">
+            <field name="name">Job Applicant Written Entry</field>
+            <field name="code">job.applicant.written.mark.entry</field>
+            <field name="implementation">standard</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">WEME-</field>
+            <field name="padding">6</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">0</field>
+        </record>
+
+        <record model="ir.sequence" id="job_applicant_viva_code_sequence">
+            <field name="name">Job Applicant Viva</field>
+            <field name="code">job.applicant.viva.mark</field>
+            <field name="implementation">standard</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">VEM-</field>
+            <field name="padding">6</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">0</field>
+        </record>
+
+        <record model="ir.sequence" id="road_map_code_sequence">
+            <field name="name">Road Map</field>
+            <field name="code">road.map</field>
+            <field name="implementation">standard</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">RMM-</field>
+            <field name="padding">6</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">0</field>
+        </record>
+
+        <record model="ir.sequence" id="job_applicant_demo_code_sequence">
+            <field name="name">Job Applicant Demo</field>
+            <field name="code">job.applicant.demo.mark</field>
+            <field name="implementation">standard</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">DEM-</field>
+            <field name="padding">6</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">0</field>
+        </record>
+        <record model="ir.sequence" id="pay_order_code_sequence">
+            <field name="name">Pay Order</field>
+            <field name="code">pay.order</field>
+            <field name="implementation">standard</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">PayOrder-</field>
+            <field name="padding">6</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">0</field>
+        </record>
+
+    </data>
+</odoo>

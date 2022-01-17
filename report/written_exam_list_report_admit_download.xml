@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="custom_paper_format_portrait_for_written_admit" model="report.paperformat">
+            <field name="name">Custom Report A4</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">12</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">22</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+            id="report_job_written_exam_list_admit_card"
+            model="written.admit.card"
+            report_type="qweb-html"
+            string="Job Written Exam List Admit Card Download List"
+            print_report_name="'Job Written Exam List Admit Card Download List of %s' %(object.id)"
+            name="extension_recruitment.report_job_written_exam_list_admit_receipt_template"
+            file="extension_recruitment.report_job_written_exam_list_admit_receipt_template"
+            paperformat="custom_paper_format_portrait_for_written_admit"
+            attachment_use="False"
+        />
+
+        <template id="report_job_written_exam_list_admit_receipt_template">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+
+                        <t t-set="data" t-value="docs[0]"/>
+
+                        <!-- Report Header -->
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12 col-12 text-center">
+                                <img clas="img-fluid" style="max-width: 420px;"
+                                     t-if="data.company_id.logo"
+                                     t-att-src="image_data_uri(data.company_id.logo)"
+                                     t-att-alt="data.company_id.name"/>
+                                <h6 style="margin-top: 10px;">Daffodil Family, 102/1, Sukrabad, Mirpur Road, Dhanmondi,
+                                    Dhaka-1207, Bangladesh.
+                                </h6>
+                                <hr/>
+                            </div>
+                        </div>
+                        <t t-if="data.name">
+                            <!-- Report Title -->
+                            <div class="row" style="margin-top: 20px; padding: 20px;">
+                                <div class="col-xs-12 col-md-12 col-12">
+                                    <h3 class="text-center"><b>Daffodil International University(DIU)</b>
+                                    </h3>
+                                    <h5 class="text-center">Message Sent Report of Written Exam
+                                    </h5>
+                                    <h5 class="text-center">For
+                                    </h5>
+                                    <h5 class="text-center">
+                                            <span t-if="data.applicant.job_id.post_type" t-esc="data.applicant.job_id.post_type" t-field="data.applicant.job_id.post_type"/>
+                                    </h5>
+                                </div>
+                            </div>
+
+                            <hr style="border-top: 1px solid black;"/>
+
+                            <div class="row mb-2">
+                                <div class="col-xs-6 col-md-6 col-sm-6 col-6">
+                                    Position:
+                                    <span t-if="data.name"
+                                          t-esc="data.name"
+                                          t-field="data.name"/>
+                                </div>
+                                <div class="col-xs-6 col-md-6 col-sm-6 col-6 text-center">
+                                    Department:
+                                    <span t-if="data.applicant.job_id.department_id"
+                                          t-esc="data.applicant.job_id.department_id"
+                                          t-field="data.applicant.job_id.department_id"/>
+                                </div>
+                            </div>
+
+                            <!-- Report Details -->
+                            <table t-if="data.applicant" class="table table-bordered">
+                                <thead>
+                                    <tr class="active">
+                                        <th width="5%">SL</th>
+                                        <th width="8%">Tracking</th>
+                                        <th width="7%">Roll</th>
+                                        <th>Applicant Name</th>
+                                        <th>Father Name</th>
+                                        <th>Mobile</th>
+                                        <th>Email</th>
+                                        <th width="7%">Admit</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="i" t-value="1"/>
+                                    <tr t-foreach="data.applicant" t-as="app">
+                                        <td>
+                                            <span t-esc="i"/>
+                                            <t t-set="i" t-value="i+1"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="app.job_applicant_id.tracking_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="app.exam_roll" t-field="app.exam_roll"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="app.partner_name" t-field="app.partner_name"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="app.job_applicant_id.father"
+                                                  t-field="app.job_applicant_id.father"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="app.partner_mobile"/>
+                                        </td>
+                                        <td>
+                                           <span t-esc="app.email_from"/>
+                                        </td>
+                                        <td>
+                                            <t t-if="app.admit_card_status">
+                                                1
+                                            </t>
+                                            <t t-else="">
+                                                0
+                                            </t>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                            <!-- Report Footer -->
+                            <div class="footer">
+                                <div class="row" style="margin-top: 50px;">
+                                    <div class="col-xs-12 col-md-12 col-12">
+                                        <!--                                    <p style="font-weight: bold;">N.B: Please preserve this receipt for your safety.</p>-->
+                                        <!--                                    <hr style="border-top: 1px solid black;"/>-->
+                                        <ul class="list-inline text-center">
+                                            <li class="list-inline-item">
+                                                Phone:
+                                                <span>+8801991195535</span>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                Email:
+                                                <span>pd@daffodilvarsity.edu.bd</span>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                Web:
+                                                <span>http://diu.edu.bd</span>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <span>E-Recruitment System</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

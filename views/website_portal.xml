@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <template id="job_applicant_extension_my_home_account" name="Portal My Home : account portal" inherit_id="portal.portal_my_home" priority="5">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="user_id.sudo().is_job_applicant">
+                <t  t-call="portal.portal_docs_entry">
+                    <t t-set="title">Account Portal</t>
+                    <t t-set="url" t-value="'/my/view-table'"/>
+                </t>
+            </t>
+        </xpath>
+    </template>
+    <template id="job_applicant_extension_my_home_job" name="Portal My Home : job portal" inherit_id="portal.portal_my_home" priority="10">
+         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="user_id.sudo().is_job_applicant">
+                <t t-call="portal.portal_docs_entry">
+                    <t t-set="title">Job Portal</t>
+                    <t t-set="url" t-value="'/jobs'"/>
+                </t>
+            </t>
+         </xpath>
+    </template>
+    <template id="job_applicant_extension_my_home_job_list" name="Portal My Home : apply portal" inherit_id="portal.portal_my_home" priority="15">
+         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="user_id.sudo().is_job_applicant">
+                <t t-call="portal.portal_docs_entry">
+                    <t t-set="title">Job Applicant Apply List</t>
+                    <t t-set="url" t-value="'/my/job/applicant/apply/list'"/>
+                    <t t-set="count" t-value="application_count"/>
+                </t>
+            </t>
+         </xpath>
+    </template>
+    <template id="job_applicant_extension_my_home_job_meeting" name="Portal My Home : meeting portal" inherit_id="portal.portal_my_home" priority="20">
+         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="user_id.sudo().is_job_applicant">
+                <t  t-call="portal.portal_docs_entry">
+                    <t t-set="title">Meeting Details</t>
+                    <t t-set="url" t-value="'/job/meeting/information/'"/>
+                    <t t-set="count" t-value="meeting_count"/>
+                </t>
+            </t>
+        </xpath>
+    </template>
+</odoo>

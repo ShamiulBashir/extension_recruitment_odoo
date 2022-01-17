@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<odoo>
+<data noupdate="1">
+
+    <record model="shortlist.stage" id="short_stage_job1">
+        <field name="name">Initial Qualification</field>
+        <field name="sequence">1</field>
+    </record>
+    <record model="shortlist.stage" id="short_stage_job2">
+        <field name="name">bKash Approve</field>
+        <field name="sequence">2</field>
+    </record>
+    <record model="shortlist.stage" id="short_stage_job3">
+        <field name="name">Department of Head Approve</field>
+        <field name="sequence">3</field>
+    </record>
+    <record model="shortlist.stage" id="short_stage_job4">
+        <field name="name">Faculty of Dean Approve</field>
+        <field name="sequence">4</field>
+    </record>
+    <record model="shortlist.stage" id="short_stage_job5">
+        <field name="name">Final Shortlist</field>
+        <field name="sequence">5</field>
+        <field name="fold" eval="True"/>
+    </record>
+
+    <record model="diu.job.category" id="job_category1">
+        <field name="name">Full Time</field>
+    </record>
+    <record model="diu.job.category" id="job_category2">
+        <field name="name">Part Time</field>
+    </record>
+    <record model="diu.job.category" id="job_category3">
+        <field name="name">Internee</field>
+    </record>
+    <record model="diu.job.category" id="job_category4">
+        <field name="name">Contractual</field>
+    </record>
+
+
+    <record model="post.category" id="post_category1">
+        <field name="name">Administrative</field>
+    </record>
+    <record model="post.category" id="post_category2">
+        <field name="name">Faculty</field>
+    </record>
+
+    <record model="venue" id="venue_1">
+        <field name="name">Daffodil Smart City</field>
+    </record>
+
+    
+
+</data>
+</odoo>

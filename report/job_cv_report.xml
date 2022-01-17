@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="custom_paper_format_portrait_for_job_cv" model="report.paperformat">
+            <field name="name">Custom Report A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">12</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">22</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                id="report_job_cv"
+                model="hr.applicant"
+                report_type="qweb-html"
+                string="Applicant CV View"
+                print_report_name="'Job CV of %s' %(object.partner_name)"
+                name="extension_recruitment.report_job_cv_receipt_template"
+                file="extension_recruitment.report_job_cv_receipt_template"
+                paperformat="custom_paper_format_portrait_for_job_cv"
+                attachment_use="False"
+        />
+
+        <template id="report_job_cv_receipt_template">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+
+                        <t t-set="data" t-value="docs[0]"/>
+
+                        <!-- Report Header -->
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col-xs-12 col-md-12 col-12 text-center">
+                                <h3>Daffodil International University (DIU)</h3>
+                                <h5>Daffodil Smart City, Ashulia, Dhaka.</h5>
+                            </div>
+                        </div>
+
+                        <!-- Report Title -->
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col-xs-12 col-md-12 col-12">
+                                <h4 class="text-center" style="font-weight: bold;">
+                                    <u>Application Form for
+                                        <span t-if="data.job_id.post_type" t-esc="data.job_id.post_type"
+                                              t-field="data.job_id.post_type"/>
+                                    </u>
+                                </h4>
+                            </div>
+                        </div>
+
+                        <!-- Report Details -->
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col-xs-8 col-md-8 col-sm-8 col-8 mt-3">
+                                <h5>Position applied for :
+                                    <b><span t-if="data.job_id" t-esc="data.job_id" t-field="data.job_id"/>(<span
+                                            t-if="data.department_id" t-esc="data.department_id"
+                                            t-field="data.department_id"/>)
+                                    </b>
+                                </h5>
+                                <h5>Department :
+                                    <b>
+                                        <span t-if="data.department_id" t-esc="data.department_id"
+                                              t-field="data.department_id"/>
+                                    </b>
+                                </h5>
+                                <h5>Major(if any) :
+                                    <b>
+                                        <span t-if="data.job_id.subject" t-esc="data.job_id.subject"/>
+                                    </b>
+                                </h5>
+                                <h5>Current position(if applicable) :
+                                    <b>
+                                        <span t-if="data.job_id" t-esc="data.job_id" t-field="data.job_id"/>
+                                    </b>
+                                </h5>
+                                <h5>Application Submission Date :
+                                    <b>
+                                        <span t-if="data.create_date" t-esc="data.create_date"
+                                              t-options='{"widget": "date", "format": "dd MMM Y"}'/>
+                                    </b>
+                                </h5>
+                            </div>
+                            <div class="col-xs-4 col-md-4 col-sm-4 col-4  text-center mt-10">
+                                <img clas="img-fluid"
+                                     style="border: solid 1px #CCCCCC; padding:2px; width:250px; height:200px;"
+                                     t-if="data.job_applicant_id.image_id"
+                                     t-att-src="image_data_uri(data.job_applicant_id.image_id)"
+                                     t-att-alt="data.job_applicant_id.image_id"/>
+                            </div>
+
+                            <div class="col-xs-12 col-md-12 col-sm-12 col-12 mt-2">
+                                <h5 style="background-color: rgb(204, 200, 200);">
+                                    <u>1. Personal Information:</u>
+                                </h5>
+                            </div>
+                            <div class="col-xs-12 col-md-12 col-sm-12 col-12 mt-3" style=" line-height: 2.7rem;">
+                                <span class="text-center">
+                                    Name</span> <span class="text-center"> :</span><b><span t-if="data.partner_name" t-esc="data.partner_name" t-field="data.partner_name"/></b>
+                                <br/>
+                                <span>
+                                    Father's Name : <b><span t-if="data.job_applicant_id.father" t-esc="data.job_applicant_id.father" t-field="data.job_applicant_id.father"/></b>
+                                </span>
+                                <br/>
+                                <span>
+                                    Mother's Name :<b><span t-if="data.job_applicant_id.mother" t-esc="data.job_applicant_id.mother" t-field="data.job_applicant_id.mother"/> </b>
+                                </span>
+                                <br/>
+                                <span>
+                                    Date of Birth : <b><span t-if="data.job_applicant_id.birthday" t-esc="data.job_applicant_id.birthday" t-field="data.job_applicant_id.birthday" t-options='{"widget": "date", "format": "dd MMM Y"}'/></b>
+                                </span>
+                                <br/>
+                                <span>
+                                    Age : <b><span t-if="data.job_applicant_id.age" t-esc="data.job_applicant_id.age" t-field="data.job_applicant_id.age" t-options='{"widget": "integer"}'/></b> Years
+                                </span>
+                                <br/>
+                                <span>
+                                    Mailing address :<b> <span t-if="data.job_applicant_id.father" t-esc="data.job_applicant_id.father" t-field="data.job_applicant_id.father"/></b>
+                                </span>
+                                <br/>
+                                <span>
+                                    E-mail : <b><span t-if="data.email_from" t-esc="data.email_from" t-field="data.email_from"/></b>
+                                </span>
+                                <br/>
+                                <span>
+                                    Permanent address :<b> <span t-if="data.job_applicant_id.permanent_address" t-esc="data.job_applicant_id.permanent_address" t-field="data.job_applicant_id.permanent_address"/></b>
+                                </span>
+                                <br/>
+                                <span>
+                                   Nationality :<b> <span t-if="data.job_applicant_id.nationality" t-esc="data.job_applicant_id.nationality" t-field="data.job_applicant_id.nationality"/></b>
+                                </span>
+                                <br/>
+                                <span>
+                                   National ID number :<b> <span t-if="data.job_applicant_id.national_id" t-esc="data.job_applicant_id.national_id" t-field="data.job_applicant_id.national_id"/></b>
+                                </span>
+                                <br/>
+                                <span>
+                                  Passport Number :<b> <span t-if="data.job_applicant_id.passport_no" t-esc="data.job_applicant_id.passport_no" t-field="data.job_applicant_id.passport_no"/></b>
+                                </span>
+                                <br/>
+                                <span>
+                                    Religion : <b><span t-if="data.job_applicant_id.job_religion" t-esc="data.job_applicant_id.job_religion" t-field="data.job_applicant_id.job_religion"/></b>
+                                </span>
+                                <br/>
+                                <span>
+                                   Marital status : <b><span t-if="data.job_applicant_id.job_marriage_status" t-esc="data.job_applicant_id.job_marriage_status" t-field="data.job_applicant_id.job_marriage_status"/></b>
+                                </span>
+                                <br/>
+                                <span>
+                                    Blood Group : <b><span t-if="data.job_applicant_id.blood_group" t-esc="data.job_applicant_id.blood_group" t-field="data.job_applicant_id.blood_group"/></b>
+                                </span>
+                                <br/>
+                                <span>
+                                   Expected salary :<b> <span t-if="data.salary_expected" t-esc="data.salary_expected"/></b>
+                                </span>
+                                <br/>
+                                <span>
+                                    Bank Draft/ Pay Order No. :<b> <span t-if="data.account_move_id" t-esc="data.account_move_id" t-field="data.account_move_id"/>/ <span t-if="data.payorder_rec" t-esc="data.payorder_rec" t-field="data.payorder_rec"/></b>
+                                </span>
+                                <br/>
+                                <span>
+                                    Facebook link :<b> <span t-if="data.job_applicant_id.facebook_link" t-esc="data.job_applicant_id.facebook_link"/></b>
+                                </span>
+                                <br/>
+                                <span>
+                                    Linked Link : <b><span t-if="data.job_applicant_id.linkedin_link" t-esc="data.job_applicant_id.linkedin_link"/></b>
+                                </span>
+                                <br/>
+                                <span>
+                                    Google Site link :<b><span t-if="data.job_applicant_id.google_site_link" t-esc="data.job_applicant_id.google_site_link" /></b>
+                                </span>
+                                <br/>
+                                <span>
+                                    Twitter Link : <b><span t-if="data.job_applicant_id.twitter_link" t-esc="data.job_applicant_id.twitter_link" /></b>
+                                </span>
+                                <br/>
+                                <span>
+                                    Youtube Link : <b><span t-if="data.job_applicant_id.youtube_link" t-esc="data.job_applicant_id.youtube_link" /></b>
+                                </span>
+                                <br/>
+                                <span>
+                                    Website Link : <b><span t-if="data.job_applicant_id.website_link" t-esc="data.job_applicant_id.website_link" /></b>
+                                </span>
+                                <br/>
+                            </div>
+                            <div class="mt-3">
+                                <h5 style="background-color: rgb(204, 200, 200);">
+                                    <u>2. Educational Qualifications :</u>
+                                </h5>
+                            </div>
+                            <div class="mt-3">
+                                <h5 style="background-color: rgb(204, 200, 200);">
+                                    <u>3. Professional Experiences (if any):</u>
+                                </h5>
+                            </div>
+                            <div class="mt-5">
+                                <h5 style="background-color: rgb(204, 200, 200);">
+                                    <u>4. Professional Training/Conference/Workshop/Seminar
+                                        (if any):
+                                    </u>
+                                </h5>
+                            </div>
+                            <div class="mt-3">
+                                <h5 style="background-color: rgb(204, 200, 200);">
+                                    <u>5. Professional Award/Recognition/Honor (if any):</u>
+                                </h5>
+                            </div>
+                            <div class="mt-3">
+                                <h5 style="background-color: rgb(204, 200, 200);">
+                                    <u>
+                                        6. Language Proficiency :
+                                    </u>
+                                </h5>
+                            </div>
+                            <div class="mt-3">
+                                <h5 style="background-color: rgb(204, 200, 200);">
+                                    <u>7. Computer and Other Skills (if any):</u>
+                                </h5>
+                            </div>
+                            <div class="mt-3">
+                                <h5 style="background-color: rgb(204, 200, 200);">
+                                    <u>8. Publications in National/International Journals (if
+                                        any):
+                                    </u>
+                                </h5>
+                            </div>
+                            <div class="mt-3">
+                                <h5 style="background-color: rgb(204, 200, 200);">
+                                    <u>9. Publication of Book(s) (if any):</u>
+                                </h5>
+                            </div>
+                            <div class="mt-3">
+                                <h5 style="background-color: rgb(204, 200, 200);">
+                                    <u>10. Publications in National and International
+                                        Conference/Workshop/Seminar Proceedings :
+                                    </u>
+                                </h5>
+                            </div>
+                            <div class="mt-3">
+                                <h5 style="background-color: rgb(204, 200, 200);">
+                                    <u>11. Supervision of Theses/Projects :</u>
+                                </h5>
+                            </div>
+                            <div class="mt-3">
+                                <h5 style="background-color: rgb(204, 200, 200);">
+                                    <u>12. Professional Body Membership/Fellowship/Other
+                                        Noteworthy Affiliations :
+                                    </u>
+                                </h5>
+                            </div>
+                            <div class="mt-3">
+                                <h5 style="background-color: rgb(204, 200, 200);">
+                                    <u>13. Others Information:</u>
+                                </h5>
+                            </div>
+                            <div class="mt-3">
+                                <h5 style="background-color: rgb(204, 200, 200);">
+                                    <u>14. Reference (s):</u>
+                                </h5>
+                            </div>
+
+                            <div class="mt-5">
+                                <span>
+                                    <b>* I certify that all information provided by me is true and complete</b>
+                                </span>
+                                <br/>
+                                <span>
+                                    <b>* Certification Date :</b>
+                                </span>
+                                <p class="mt-2">NOTE: By certifying that the information you provide is true and
+                                    complete to the best of
+                                    your knowledge you accept that any false statements or omission to provide any
+                                    information required by
+                                    this online form may provide grounds for the withdrawal of any offer of appointment
+                                    or other actions,
+                                    including dismissal, if an appointment has been accepted.
+                                </p>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

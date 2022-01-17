@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="custom_paper_format_portrait_for_written_final" model="report.paperformat">
+            <field name="name">Custom Report A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">12</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">22</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                id="report_job_written_exam_list_final"
+                model="written.admit.card"
+                report_type="qweb-html"
+                string="Written Exam Attendances List"
+                print_report_name="'Written Exam Attendances List of %s' %(object.id)"
+                name="extension_recruitment.report_job_written_exam_list_final_receipt_template"
+                file="extension_recruitment.report_job_written_exam_list_final_receipt_template"
+                paperformat="custom_paper_format_portrait_for_written_final"
+                attachment_use="False"
+        />
+
+        <template id="report_job_written_exam_list_final_receipt_template">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+
+                        <t t-set="data" t-value="docs[0]"/>
+
+                        <!-- Report Header -->
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12 col-12 text-center">
+                                <img clas="img-fluid" style="max-width: 420px;"
+                                     t-if="data.company_id.logo"
+                                     t-att-src="image_data_uri(data.company_id.logo)"
+                                     t-att-alt="data.company_id.name"/>
+                                <h6 style="margin-top: 10px;">Daffodil Family, 102/1, Sukrabad, Mirpur Road, Dhanmondi,
+                                    Dhaka-1207, Bangladesh.
+                                </h6>
+                                <hr/>
+                            </div>
+                        </div>
+                        <t t-if="data.name">
+                            <!-- Report Title -->
+                            <div class="row" style="margin-top: 20px; padding: 20px;">
+                                <div class="col-xs-12 col-md-12 col-12">
+                                    <h3 class="text-center">
+                                        <b>Daffodil International University(DIU)</b>
+                                    </h3>
+                                    <h5 class="text-center">Attendance Sheet for written exam
+                                    </h5>
+                                    <h5 class="text-center">Name of the Department:
+                                        <b>
+                                            <span t-if="data.department_id" t-esc="data.department_id"
+                                                  t-field="data.department_id"/>
+                                        </b>
+                                    </h5>
+                                    <h5 class="text-center">Position Applied for:
+                                        <b>
+                                            <span t-if="data.name" t-esc="data.name" t-field="data.name"/>
+                                        </b>
+                                    </h5>
+                                    <h5 class="text-center">Subject:
+                                        <b>
+                                            <span t-if="data.name.subject" t-esc="data.name.subject"
+                                                  t-field="data.name.subject"/>
+                                        </b>
+                                    </h5>
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <div class="col-xs-4 col-md-4 col-sm-4 col-4 text-center">
+                                    Semester:
+                                </div>
+                                <div class="col-xs-4 col-md-4 col-sm-4 col-4 text-center">
+                                    Date:
+                                    <span t-if="data.written_exam_date"
+                                          t-esc="data.written_exam_date"
+                                          t-field="data.written_exam_date"
+                                          t-options='{"widget": "date", "format": "dd MMM Y"}'/>
+                                </div>
+                                <div class="col-xs-4 col-md-4 col-sm-4 col-4 text-center">
+                                    Time:
+                                    <t t-esc="'%02d:%02d' % (int(str(data.written_exam_time).split('.')[0]), int(float(str('%.2f' % data.written_exam_time).split('.')[1])/100*60))"/>
+                                </div>
+                            </div>
+                            <hr class="mb-2" style="border-top: 1px solid black;"/>
+
+                            <!-- Report Details -->
+                            <table t-if="data.applicant" class="table table-bordered">
+                                <thead>
+                                    <tr class="active">
+                                        <th>SL</th>
+                                        <th>Tracking</th>
+                                        <th>Roll</th>
+                                        <th>Applicant Name</th>
+                                        <th>Father Name</th>
+                                        <th>Photo</th>
+                                        <th>Signature</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="i" t-value="1"/>
+                                    <tr t-foreach="data.applicant" t-as="app">
+                                        <td>
+                                            <span t-esc="i"/>
+                                            <t t-set="i" t-value="i+1"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="app.job_applicant_id.tracking_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="app.exam_roll" t-field="app.exam_roll"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="app.partner_name" t-field="app.partner_name"/>
+                                            <br/>
+                                            <span t-esc="app.partner_mobile"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="app.job_applicant_id.father"
+                                                  t-field="app.job_applicant_id.father"/>
+                                        </td>
+                                        <td>
+                                            <img clas="img-fluid"
+                                                 style="max-width: 100px; max-height: 100px; margin-top:5px;"
+                                                 t-if="app.job_applicant_id.image_id"
+                                                 t-att-src="image_data_uri(app.job_applicant_id.image_id)"
+                                                 t-att-alt="app.job_applicant_id.image_id"/>
+                                        </td>
+                                        <td></td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                            <!-- Report Footer -->
+                            <div class="footer">
+                                <div class="row" style="margin-top: 50px;">
+                                    <div class="col-xs-12 col-md-12 col-12">
+                                        <!--                                    <p style="font-weight: bold;">N.B: Please preserve this receipt for your safety.</p>-->
+                                        <!--                                    <hr style="border-top: 1px solid black;"/>-->
+                                        <ul class="list-inline text-center">
+                                            <li class="list-inline-item">
+                                                Phone:
+                                                <span>+8801991195535</span>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                Email:
+                                                <span>pd@daffodilvarsity.edu.bd</span>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                Web:
+                                                <span>http://diu.edu.bd</span>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <span>E-Recruitment System</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

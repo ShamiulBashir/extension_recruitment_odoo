@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Search View -->
+        <record id="job_applicant_search_view" model="ir.ui.view">
+            <field name="name">job.applicant.search.view</field>
+            <field name="model">job.applicant</field>
+            <field name="arch" type="xml">
+                <search string="Job Applicant">
+                    <field name="partner_name" string="Name" filter_domain="[('partner_name','ilike',self)]"/>
+                    <field name="email_from" string="Email" filter_domain="[('email_from','ilike',self)]"/>
+                    <field name="partner_phone" string="Phone" filter_domain="[('partner_phone','ilike',self)]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="job_applicant_tree_view" model="ir.ui.view">
+            <field name="name">job.applicant.tree.view</field>
+            <field name="model">job.applicant</field>
+            <field name="arch" type="xml">
+                <tree string="Job Applicant">
+                    <field name="tracking_id"/>
+                    <field name="create_date"/>
+                    <field name="partner_name"/>
+                    <field name="email_from"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="job_applicant_view_form" model="ir.ui.view">
+            <field name="name">job.applicant</field>
+            <field name="model">job.applicant</field>
+            <field name="arch" type="xml">
+                <form string="Job Applicant">
+                    <header>
+                        <button string="Refuse" name="archive_applicant" type="object"
+                                attrs="{'invisible': [('active', '=', False)]}"/>
+                        <button string="Restore" name="reset_applicant" type="object"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <field name="state_id" widget="statusbar" options="{'clickable': '1'}"/>
+                    </header>
+                    <sheet>
+                        <!--                        <div class="oe_button_box" name="button_box">-->
+                        <!--                            <button type="object" class="oe_stat_button" icon="fa-pencil-square-o"-->
+                        <!--                                    name="action_view_partner_invoices"-->
+                        <!--                                    context="{'default_partner_id': active_id}">-->
+                        <!--                                <div class="o_form_field o_stat_info">-->
+                        <!--                                    <span class="o_stat_value">-->
+                        <!--                                        <field name="total_invoiced" widget='monetary'-->
+                        <!--                                               options="{'currency_field': 'currency_id'}"/>-->
+                        <!--                                    </span>-->
+                        <!--                                    <span class="o_stat_text">Invoiced</span>-->
+                        <!--                                </div>-->
+                        <!--                            </button>-->
+                        <!--                        </div>-->
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <field name="kanban_state" widget="kanban_state_selection"/>
+                        <field name="active" invisible="1"/>
+                        <field name="legend_normal" invisible="1"/>
+                        <field name="legend_blocked" invisible="1"/>
+                        <field name="legend_done" invisible="1"/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="tracking_id"/>
+                        </group>
+
+                        <group>
+                            <group>
+                                <field name="partner_name"/>
+                                <field name="email_from"/>
+                                <field name="partner_phone"/>
+                                <field name="partner_mobile"/>
+                                <field name="emp_id" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="image_id" widget="image" class="oe_avatar oe_right"/>
+                            </group>
+                        </group>
+                        <!--                        <notebook>-->
+                        <!--                            <page id="details_tab_entry" string="Details" name="details">-->
+                        <notebook>
+                            <page id="personal_info" string="Personal">
+                                <group>
+                                    <group>
+                                        <field name="gender"/>
+                                        <field name="blood_group"/>
+                                        <field name="birthday"/>
+                                        <field name="age"/>
+                                        <field name="job_marriage_status"/>
+                                    </group>
+                                    <group>
+                                        <field name="job_religion"/>
+                                        <field name="national_id"/>
+                                        <field name="passport_no"/>
+                                        <field name="nationality"/>
+                                    </group>
+                                    <group id="guardian_info">
+                                        <field name="father"/>
+                                        <field name="f_phone"/>
+                                        <field name="mother"/>
+                                        <field name="m_mobile"/>
+                                    </group>
+                                    <group>
+                                        <field name="present_address"/>
+                                        <field name="permanent_address"/>
+                                        <field name="job_applicant_ids" widget="many2many_tags"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page id="edu_info" string="Education">
+                                <notebook>
+                                    <page id="aca_info" string="Academic">
+                                        <field name="job_applicant_education_info" nolabel="1">
+                                            <tree editable="bottom">
+                                                <field name="level_of_education"/>
+                                                <field name="exam_degree_title_name"/>
+                                                <field name="concentration_major_group_name"/>
+                                                <field name="board_name"/>
+                                                <field name="institute_name"/>
+                                                <field name="result"/>
+                                                <field name="cgpa"/>
+                                                <field name="mark"/>
+                                                <field name="scale"/>
+                                                <field name="passing_year"/>
+                                                <field name="duration"/>
+                                                <field name="achievement"/>
+                                            </tree>
+                                        </field>
+                                    </page>
+                                    <page id="job_article" string="Journal">
+                                        <field name="job_applicant_article_info" nolabel="1">
+                                            <tree editable="bottom">
+                                                <field name="article_name"/>
+                                                <field name="article_author"/>
+                                                <field name="vol_no"/>
+                                                <field name="page_no"/>
+                                                <field name="article_publication_date"/>
+                                                <field name="publication_country"/>
+                                            </tree>
+                                        </field>
+                                    </page>
+                                    <page id="job_conference" string="Conference">
+                                        <field name="job_applicant_conference_info" nolabel="1">
+                                            <tree editable="bottom">
+                                                <field name="proceedings_name"/>
+                                                <field name="conference_author"/>
+                                                <field name="conference_page_no"/>
+                                                <field name="conference_article_publication_date"/>
+                                                <field name="conference_publication_country"/>
+                                            </tree>
+                                        </field>
+                                    </page>
+                                    <page id="job_project" string="Thesis/Project">
+                                        <field name="job_applicant_project_info" nolabel="1">
+                                            <tree editable="bottom">
+                                                <field name="academic_program_name"/>
+                                                <field name="title"/>
+                                                <field name="project_year"/>
+                                            </tree>
+                                        </field>
+                                    </page>
+                                    <page id="job_book" string="Publication of Book">
+                                        <field name="job_applicant_publication_info" nolabel="1">
+                                            <tree editable="bottom">
+                                                <field name="publication_name"/>
+                                                <field name="publisher"/>
+                                                <field name="year"/>
+                                            </tree>
+                                        </field>
+                                    </page>
+                                </notebook>
+                            </page>
+
+                            <page id="job_membership" string="Membership/Fellowship">
+                                <field name="job_applicant_membership_info" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="description"/>
+                                        <field name="member_year"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page id="job_experience" string="Experience/Training">
+                                <notebook>
+                                    <page id="experience" string="Experience">
+                                        <field name="job_applicant_experience_info" nolabel="1">
+                                            <tree editable="bottom">
+                                                <field name="company_name"/>
+                                                <field name="position"/>
+                                                <field name="department"/>
+                                                <field name="area_experiences"/>
+                                                <field name="responsibilities"/>
+                                                <field name="company_location"/>
+                                                <field name="start_date"/>
+                                                <field name="to_date"/>
+                                            </tree>
+                                        </field>
+                                    </page>
+                                    <!--                                                                                <page id="job_certificate" string="Certification/Degree">-->
+                                    <!--                                                                                    <field name="job_certification_id" nolabel="1">-->
+                                    <!--                                                                                        <tree editable="bottom">-->
+                                    <!--                                                                                            <field name="certification"/>-->
+                                    <!--                                                                                            <field name="degree_institute_name"/>-->
+                                    <!--                                                                                            <field name="degree_company_location"/>-->
+                                    <!--                                                                                            <field name="degree_start_date"/>-->
+                                    <!--                                                                                            <field name="degree_to_date"/>-->
+                                    <!--                                                                                            <field name="degree_concentration_major_name"/>-->
+                                    <!--                                                                                        </tree>-->
+                                    <!--                                                                                    </field>-->
+                                    <!--                                                                                </page>-->
+                                    <page id="job_training" string="Training/Certification/Degree">
+                                        <field name="job_training_id" nolabel="1">
+                                            <tree editable="bottom">
+                                                <field name="training_title"/>
+                                                <field name="training_institute_name"/>
+                                                <field name="training_company_location"/>
+                                                <field name="training_start_date"/>
+                                                <field name="training_to_date"/>
+                                                <field name="training_concentration_major_name"/>
+                                            </tree>
+                                        </field>
+                                    </page>
+                                    <page id="job_language" string="Language Proficiency">
+                                        <field name="job_language_id" nolabel="1">
+                                            <tree editable="bottom">
+                                                <field name="language_name"/>
+                                                <field name="reading"/>
+                                                <field name="writing"/>
+                                                <field name="speaking"/>
+                                                <field name="listening"/>
+                                            </tree>
+                                        </field>
+                                    </page>
+                                    <page id="job_award" string="Professional Award">
+                                        <field name="job_award_id" nolabel="1">
+                                            <tree editable="bottom">
+                                                <field name="award"/>
+                                                <field name="award_by"/>
+                                                <field name="award_year"/>
+                                            </tree>
+                                        </field>
+                                    </page>
+                                </notebook>
+                            </page>
+
+                            <page id="reference_info" string="Reference">
+                                <field name="job_applicant_reference_info" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="reference_name"/>
+                                        <field name="reference_organization"/>
+                                        <field name="reference_position"/>
+                                        <field name="reference_relation"/>
+                                        <field name="reference_mobile"/>
+                                        <field name="reference_phone"/>
+                                        <field name="reference_email"/>
+                                        <field name="reference_address"/>
+                                        <field name="verify_status"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page id="social_media" string="Social Media">
+                                <group>
+                                    <group>
+                                        <field name="linkedin_link"/>
+                                        <field name="facebook_link"/>
+                                        <field name="google_site_link"/>
+                                        <field name="youtube_link"/>
+                                    </group>
+                                    <group>
+                                        <field name="twitter_link"/>
+                                        <field name="instagram_link"/>
+                                        <field name="website_link"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page id="other_info" string="Other">
+                                <group>
+                                    <group>
+                                        <field name="video_resumes" widget="url" target="_blank"/>
+                                        <field name="resume_embed_code" class="mt-2" widget="video_preview"/>
+                                        <!--                                        <field name="video_resume"/>-->
+                                    </group>
+                                    <group>
+                                        <field name="demo_videos" widget="url" target="_blank"/>
+                                        <field name="demo_embed_code" class="mt-2" widget="video_preview"/>
+                                        <!--                                        <field name="demo_video"/>-->
+                                    </group>
+                                    <group>
+                                        <field name="Resume"/>
+                                        <field name="computer_skill"/>
+                                    </group>
+                                    <group>
+                                        <field name="applicant_signature" widget="image"
+                                               class="oe_avatar oe_center"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"
+                               options="{'post_refresh': 'recipients', 'open_attachments': True}"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_job_portal_account_view" model="ir.actions.act_window">
+            <field name="name">Job Portal Account</field>
+            <field name="res_model">job.applicant</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="job_applicant_tree_view"/>
+        </record>
+
+        <menuitem id="job_portal_account_hr_recruitment" name="Applicant Account"
+                  parent="hr_recruitment.menu_hr_recruitment_root" sequence="80"/>
+
+        <menuitem id="job_portal_account_view" name="Applicant Profile"
+                  parent="job_portal_account_hr_recruitment" action="action_job_portal_account_view"/>
+
+
+    </data>
+</odoo>

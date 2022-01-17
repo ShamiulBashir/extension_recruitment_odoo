@@ -1,0 +1,855 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Stage -->
+        <record id="shortlist_stage_act" model="ir.actions.act_window">
+            <field name="name">Shortlist Stages</field>
+            <field name="res_model">shortlist.stage</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new stage in the recruitment process
+                </p>
+                <p>
+                    Define here your stages of the recruitment process, for example:
+                    qualification call, first interview, second interview, refused,
+                    hired.
+                </p>
+            </field>
+        </record>
+
+        <!-- Stage Tree View -->
+        <record model="ir.ui.view" id="shortlist_stage_tree">
+            <field name="name">shortlist.stage.tree</field>
+            <field name="model">shortlist.stage</field>
+            <field name="arch" type="xml">
+                <tree string="Shortlist Stages">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="fold"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Stage Kanban View -->
+        <record id="view_shortlist_stage_kanban" model="ir.ui.view">
+            <field name="name">shortlist.stage.kanban</field>
+            <field name="model">shortlist.stage</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name"/>
+                    <field name="fold"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div>
+                                    <strong>
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+                                <div>
+                                    <span>Folded in Recruitment Pipe:</span>
+                                    <field name="fold" widget="boolean"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Stage Form View -->
+        <record model="ir.ui.view" id="shortlist_stage_form">
+            <field name="name">shortlist.stage.form</field>
+            <field name="model">shortlist.stage</field>
+            <field name="arch" type="xml">
+                <form string="Shortlist Stage">
+                    <sheet>
+                        <group name="stage_definition" string="Stage Definition">
+                            <group>
+                                <field name="name"/>
+                                <field name="sequence" groups="base.group_no_one"/>
+                                <field name="template_id" domain="[('model_id.model', '=', 'hr.applicant')]"/>
+                            </group>
+                            <group name="stage_details">
+                                <field name="fold"/>
+                                <field name="job_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <group name="tooltips" string="Tooltips">
+                            <p class="text-muted" colspan="2">
+                                You can define here the labels that will be displayed for the kanban state instead
+                                of the default labels.
+                            </p>
+                            <label for="legend_normal" string=" " class="o_status"/>
+                            <field name="legend_normal" nolabel="1"/>
+                            <label for="legend_blocked" string=" " class="o_status o_status_red"/>
+                            <field name="legend_blocked" nolabel="1"/>
+                            <label for="legend_done" string=" " class="o_status o_status_green"/>
+                            <field name="legend_done" nolabel="1"/>
+                        </group>
+                        <separator string="Shortlist Requirements"/>
+                        <field name="shortlist_requirements"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Stage Action -->
+        <record id="shortlist_stage_act" model="ir.actions.act_window">
+            <field name="name">Stages</field>
+            <field name="res_model">shortlist.stage</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_id" ref="shortlist_stage_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new stage in the recruitment process
+                </p>
+                <p>
+                    Don't forget to specify the department if your recruitment process
+                    is different according to the job position.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_shortlist_stage" name="Shortlist Stages"
+                  parent="hr_recruitment.menu_hr_recruitment_configuration" action="shortlist_stage_act"
+                  groups="base.group_no_one" sequence="2"/>
+
+        <!--         Shortlist Kanban View -->
+        <record model="ir.ui.view" id="shortlist_kanban_view_applicant">
+            <field name="name">Shortlist kanban</field>
+            <field name="model">hr.applicant</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_applicant">
+                    <field name="color"/>
+                    <field name="priority"/>
+                    <field name="user_id"/>
+                    <field name="job_applicant_id"/>
+                    <field name="email_from"/>
+                    <field name="partner_name"/>
+                    <field name="id"/>
+                    <field name="image"/>
+                    <field name="type_id"/>
+                    <field name="partner_id"/>
+                    <field name="job_id"/>
+                    <field name="department_id"/>
+                    <field name="hr_application_state"/>
+                    <field name="message_needaction_counter"/>
+                    <field name="attachment_number"/>
+                    <field name="active"/>
+                    <field name="activity_ids"/>
+                    <field name="applicant_education" nolabel="1"/>
+                    <templates>
+                        <t t-name="kanban-box">
+
+
+                            <div t-attf-class="{{!selection_mode ? 'oe_kanban_color_' + kanban_getcolor(record.color.raw_value) : ''}} oe_kanban_global_click"
+                                 style="width:200%;">
+                                <div class="o_dropdown_kanban dropdown">
+                                    <a class="dropdown-toggle o-no-caret btn" role="button" data-toggle="dropdown"
+                                       href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                        <span class="fa fa-ellipsis-v"/>
+                                    </a>
+                                    <div class="dropdown-menu" role="menu">
+                                        <a role="menuitem" t-if="widget.editable" name="edit_applicant"
+                                           class="dropdown-item" type="edit">Edit
+                                        </a>
+                                        <t t-if="widget.deletable">
+                                            <a role="menuitem" type="delete" class="dropdown-item">Delete</a>
+                                        </t>
+                                        <a role="menuitem" name="action_makeMeeting" type="object"
+                                           class="dropdown-item">Schedule Interview
+                                        </a>
+                                        <div role="separator" class="dropdown-divider"></div>
+                                        <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <div class="o_kanban_record_top">
+                                        <div class="o_kanban_record_headings">
+                                            <strong class="o_kanban_record_title text-center">
+                                                <h3>Applicant Information</h3>
+                                            </strong>
+                                        </div>
+                                    </div>
+                                    <div class="oe_kanban_content row">
+                                        <div class="col-md-3">
+                                            <b>Name :</b>
+                                            <field name="partner_name"/>
+                                            <br/>
+                                            <b>Email :</b>
+                                            <field name="email_from"/>
+                                            <br/>
+                                            <b>Father Name:</b>
+                                            <field name="father_name"/>
+                                            <br/>
+                                            <b>Date of Birth:</b>
+                                            <field name="birthday" options="{'format': 'dd MMM Y'}"/>
+                                            <br/>
+                                            <t t-if="record.partner_mobile.raw_value">
+                                                <b>Mobile</b>
+                                                <i class="fa fa-mobile mr4" role="img" aria-label="Mobile"
+                                                   title="Mobile"/>
+                                                :
+                                                <field name="partner_mobile" widget="phone"/>
+                                                <br/>
+                                            </t>
+                                            <b>Applied Job:</b>
+                                            <field name="job_id"/>
+                                            <br/>
+                                            <b>Department Name:</b>
+                                            <field name="department_id"/>
+                                            <br/>
+                                            <b>Payment Status:</b>
+                                            <field name="invoice_payment_status"/>
+                                            <br/>
+                                        </div>
+
+                                        <div class="col-md-7">
+
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Exam</th>
+                                                        <th>Major</th>
+                                                        <th>Institute</th>
+                                                        <th>Result</th>
+                                                        <th>Passing</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody t-if="record.applicant_education.raw_value">
+                                                    <tr t-foreach="record.applicant_education.raw_value" t-as='app'>
+                                                        <td>
+                                                            <span t-esc="app.exam_degree_title_name"/>
+                                                        </td>
+                                                        <td>
+                                                            <span t-esc="app.concentration_major_group_name"/>
+                                                        </td>
+                                                        <td>
+                                                            <span t-esc="app.institute_name"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-if="app.cgpa">
+                                                                CGPA :
+                                                                <span t-esc="app.cgpa"/>
+                                                                <br/>
+                                                                Out of :
+                                                                <span t-esc="app.scale"/>
+                                                            </t>
+                                                            <t t-if="app.mark">
+                                                                Marks :
+                                                                <span t-esc="app.mark"/>
+                                                                %
+                                                            </t>
+
+                                                        </td>
+                                                        <td>
+                                                            <span t-esc="app.passing_year"/>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <img t-att-src="kanban_image('hr.applicant', 'image', record.id.raw_value)"
+                                                 t-att-title="record.id.value" t-att-alt="record.id.value"
+                                                 style="border: solid 1px #CCCCCC; padding:2px; width:200px; height:200px;"/>
+                                        </div>
+                                        <div class="col-md-3 mt-3">
+                                            <t t-if="record.hr_application_state.raw_value">
+                                                <button type="object"
+                                                        class="btn btn-primary"
+                                                        string="Accounts Approve"
+                                                        name="action_hr_application_state_accounts"
+                                                        groups="extension_recruitment.group_recruitment_management_administrator,extension_recruitment.group_recruitment_accounts"
+                                                        attrs="{'invisible': [('hr_application_state','!=','pay')]}">
+                                                    Accounts Approve
+                                                </button>
+                                                <button class="btn btn-primary"
+                                                        name="action_hr_application_state_applied"
+                                                        type="object"
+                                                        groups="extension_recruitment.group_recruitment_management_administrator,extension_recruitment.group_recruitment_head"
+                                                        attrs="{'invisible': [('hr_application_state','!=','applied')]}"
+                                                >
+                                                    Department of Head Approve
+                                                </button>
+                                                <br/>
+                                                <button class="btn btn-primary"
+                                                        name="action_hr_application_state_recommendation"
+                                                        type="object"
+                                                        groups="extension_recruitment.group_recruitment_management_administrator,extension_recruitment.group_recruitment_dean"
+                                                        attrs="{'invisible': [('hr_application_state','!=','recommendation')]}"
+                                                >
+                                                    Faculty of Dean Approve
+                                                </button>
+                                            </t>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="50%">Video Resume</th>
+                                                        <th width="50%">Demo Video</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <t t-if="record.resume_embed_code.raw_value">
+                                                                <field name="resume_embed_code" widget="video_preview"/>
+                                                            </t>
+                                                        </td>
+                                                        <td>
+                                                            <t t-if="record.demo_embed_code.raw_value">
+                                                                <field name="demo_embed_code" widget="video_preview"/>
+                                                            </t>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-2">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="action_shortlist_kanban_view" model="ir.actions.act_window">
+            <field name="name">Shortlist</field>
+            <field name="res_model">hr.applicant</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="shortlist_kanban_view_applicant"/>
+            <field name="search_view_id" ref="hr_recruitment.hr_applicant_view_search_bis"/>
+            <field name="domain">[('job_id','=', active_id),('hr_application_state','=','shortlist')]</field>
+        </record>
+
+        <record id="action_pay_kanban_view" model="ir.actions.act_window">
+            <field name="name">Accounts Section Approve</field>
+            <field name="res_model">hr.applicant</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="shortlist_kanban_view_applicant"/>
+            <field name="search_view_id" ref="hr_recruitment.hr_applicant_view_search_bis"/>
+            <field name="domain">[('job_id','=', active_id),('hr_application_state','=','pay')]</field>
+        </record>
+
+
+        <record id="action_applied_kanban_view" model="ir.actions.act_window">
+            <field name="name">Department of Head Approve</field>
+            <field name="res_model">hr.applicant</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="shortlist_kanban_view_applicant"/>
+            <field name="search_view_id" ref="hr_recruitment.hr_applicant_view_search_bis"/>
+            <field name="domain">[('job_id','=', active_id),('hr_application_state','=','applied')]</field>
+        </record>
+
+        <record id="action_recommendation_kanban_view" model="ir.actions.act_window">
+            <field name="name">Faculty of Head Approve</field>
+            <field name="res_model">hr.applicant</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="shortlist_kanban_view_applicant"/>
+            <field name="search_view_id" ref="hr_recruitment.hr_applicant_view_search_bis"/>
+            <field name="domain">[('job_id','=', active_id),('hr_application_state','=','recommendation')]</field>
+        </record>
+
+        <record id="view_hr_job_shortlist_kanban" model="ir.ui.view">
+            <field name="name">Job Kanban View</field>
+            <field name="model">hr.job</field>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey o_kanban_dashboard o_hr_recruitment_kanban">
+                    <field name="name"/>
+                    <field name="alias_name"/>
+                    <field name="alias_domain"/>
+                    <field name="is_favorite"/>
+                    <field name="department_id"/>
+                    <field name="write_date"/>
+                    <field name="end_date"/>
+                    <field name="no_of_recruitment"/>
+                    <field name="color"/>
+                    <field name="new_application_count"/>
+                    <field name="hr_applicant_ids"/>
+                    <field name="bkash_application_count"/>
+                    <field name="applied_application_count"/>
+                    <field name="website_url"/>
+                    <field name="survey_id"/>
+                    <field name="recommendation_application_count"/>
+                    <field name="draft_application_count"/>
+                    <field name="shortlist_application_count"/>
+                    <field name="no_of_hired_employee"/>
+                    <field name="website_published"/>
+                    <field name="manager_id"/>
+                    <field name="state"/>
+                    <field name="user_id"/>
+                    <field name="id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="#{!selection_mode ? kanban_color(record.color.raw_value) : ''}"
+                                 style="width:200%;">
+                                <field name="website_published" invisible="1"/>
+                                <div class="ribbon ribbon-top-right"
+                                     attrs="{'invisible': [('website_published', '=', False)]}">
+                                    <span class="o_recruitment_purple">Published</span>
+                                </div>
+                                <div class="o_kanban_card_header">
+                                    <div class="o_kanban_card_header_title">
+                                        <div class="o_primary col-12">
+                                            <span>
+                                                <t t-esc="record.name.value"/>
+                                            </span>
+                                        </div>
+                                        <div class="o_kanban_record_subtitle col-12 text-muted">
+                                            <field name="user_id"/>
+                                        </div>
+                                        <field name="is_favorite" widget="boolean_favorite" nolabel="1"/>
+                                        <div t-if="record.alias_name.value and record.alias_domain.value and record.state.raw_value == 'recruit'"
+                                             class="o_secondary o_job_alias">
+                                            <small>
+                                                <i class="fa fa-envelope-o" role="img" aria-label="Alias"
+                                                   title="Alias"></i>
+                                                <field name="alias_id"/>
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="o_kanban_manage_button_section">
+                                        <a class="o_kanban_manage_toggle_button" href="#">
+                                            <i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="oe_kanban_details">
+                                    <div class="oe_kanban_content row">
+                                        <div class="col-md-12">
+
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Job Title</th>
+                                                        <th>Dept.</th>
+                                                        <th>Posting Date</th>
+                                                        <th>Deadline</th>
+                                                        <th>Accounts</th>
+                                                        <th>Applied Job</th>
+                                                        <th>Recommended</th>
+                                                        <th>Shortlist</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+
+                                                    <tr>
+
+                                                        <td>
+                                                            <span>
+                                                                <t t-esc="record.name.value"/>
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <span t-esc="record.department_id.value"/>
+                                                        </td>
+                                                        <td>
+                                                            <span t-esc="record.write_date.value"
+                                                                  t-options='{"widget": "date", "format": "dd MMM Y"}'/>
+                                                        </td>
+                                                        <td>
+                                                            <span t-esc="record.end_date.value"
+                                                                  t-options='{"widget": "date", "format": "dd MMM Y"}'/>
+                                                        </td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <button class="btn btn-primary"
+                                                                            name="%(action_pay_kanban_view)d"
+                                                                            type="action">
+                                                                        Accounts (
+                                                                        <field name="bkash_application_count"/>
+                                                                        )
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>
+
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <button class="btn btn-primary"
+                                                                            name="%(action_applied_kanban_view)d"
+                                                                            type="action">
+                                                                        Applied (<field
+                                                                            name="applied_application_count"/>)
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <button class="btn btn-primary"
+                                                                            name="%(action_recommendation_kanban_view)d"
+                                                                            type="action">
+
+                                                                        Recommended (<field
+                                                                            name="recommendation_application_count"/>)
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <button class="btn btn-primary"
+                                                                            name="%(action_shortlist_kanban_view)d"
+                                                                            type="action">
+
+                                                                        Shortlist (
+                                                                        <field name="shortlist_application_count"/>
+                                                                        )
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div name="kanban_boxes" class="row o_recruitment_kanban_boxes">
+                                    <div class="o_recruitment_kanban_box o_kanban_primary_bottom bottom_block"
+                                         style="padding-left:8px;">
+                                        <div class="col-6">
+                                            <field name="website_url" invisible="1"/>
+                                            <span>
+                                                <a t-attf-href="#{record.website_url.raw_value}">Job Description</a>
+                                            </span>
+                                        </div>
+                                        <div class="col-6">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="o_kanban_card_manage_pane dropdown-menu" role="menu">
+                                    <div class="o_kanban_card_manage_section">
+                                        <div role="menuitem">
+                                            <a t-if="record.state.raw_value == 'recruit'" name="set_open" type="object">
+                                                Recruitment Done
+                                            </a>
+                                        </div>
+                                        <div role="menuitem">
+                                            <a t-if="record.state.raw_value == 'open'" name="set_recruit" type="object">
+                                                Start recruitment
+                                            </a>
+                                        </div>
+                                        <div role="menuitem">
+                                            <a t-if="widget.editable" name="edit_job" type="edit">Edit</a>
+                                            <a t-if="record.survey_id.raw_value"
+                                               name="hr_recruitment_survey.action_print_survey"
+                                               type="object"
+                                               title="Display Interview Form">Interview Form
+                                            </a>
+                                            <span t-if="!record.survey_id.raw_value">No Interview Form</span>
+                                        </div>
+
+
+                                    </div>
+                                    <div role="menuitem" aria-haspopup="true">
+                                        <ul class="oe_kanban_colorpicker" data-field="color" role="menu"/>
+                                    </div>
+                                    <div class="o_hr_job_boxes">
+                                        <a class="o_hr_job_box" name="%(hr_recruitment.action_hr_job_applications)d"
+                                           type="action"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="action_hr_applicant_kanban_view" model="ir.actions.act_window">
+            <field name="name">All Application</field>
+            <field name="res_model">hr.applicant</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="shortlist_kanban_view_applicant"/>
+
+        </record>
+
+
+        <record id="action_view_hr_job_shortlist_kanban" model="ir.actions.act_window">
+            <field name="name">Job Kanban Shortlist</field>
+            <field name="res_model">hr.job</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="view_hr_job_shortlist_kanban"/>
+        </record>
+
+
+        <record id="first_shortlist_tree_view" model="ir.ui.view">
+            <field name="name">first.shortlist.tree.view</field>
+            <field name="model">first.shortlist</field>
+            <field name="arch" type="xml">
+                <tree string="Applied Shortlist By Head">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="user_id"/>
+                    <field name="applicant"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="first_shortlist_form_view" model="ir.ui.view">
+            <field name="name">first.shortlist.form.view</field>
+            <field name="model">first.shortlist</field>
+            <field name="arch" type="xml">
+                <form string="Applied Shortlist By Head">
+                    <sheet>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" name="toggle_active" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options="{'terminology': 'archive'}"
+                                       invisible="1"/>
+                                <span name="active" class="o_stat_text text-success"
+                                      attrs="{'invisible': [('active', '=', False)]}">Active
+                                </span>
+                                <span name="active" class="o_stat_text text-danger"
+                                      attrs="{'invisible': [('active', '=', True)]}">Deactive
+                                </span>
+                            </button>
+                        </div>
+                        <field name="code" readonly="1"/>
+                        <group>
+                            <field name="name" widget="many2one_tags"/>
+                            <field name="department_id"/>
+                        </group>
+                        <group>
+                            <field name="user_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="applicant" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="partner_name"/>
+                                    <field name="father_name"/>
+                                    <field name="email_from"/>
+                                    <field name="partner_mobile"/>
+                                    <field name="applicant_education" widget="one2many_tags">
+                                        <tree editable="bottom">
+                                            <field name="exam_degree_title_name"/>
+                                            <field name="concentration_major_group_name"/>
+                                            <field name="institute_name"/>
+                                            <field name="cgpa"/>
+                                            <field name="mark"/>
+                                            <field name="scale"/>
+                                        </tree>
+                                    </field>
+                                    <field name="invoice_payment_status"/>
+                                    <field name="image" widget="image" class="oe_avatar oe_right"/>
+                                    <field name="resume_embed_code" widget="video_preview" string="Resume Video"/>
+                                    <field name="demo_embed_code" widget="video_preview" string="Demo Video"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_first_shortlist_view" model="ir.actions.act_window">
+            <field name="name">Applied Shortlist</field>
+            <field name="res_model">first.shortlist</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="first_shortlist_tree_view"/>
+        </record>
+
+        <menuitem id="menu_shortlist_view" name="Shortlist" parent="hr_recruitment.menu_hr_recruitment_root"
+                  sequence="75"/>
+
+        <menuitem id="menu_hr_shortlist" name="All Applications "
+                  parent="extension_recruitment.menu_shortlist_view" action="action_hr_applicant_kanban_view"
+                  sequence="1"/>
+
+        <menuitem id="menu_hr_job_shortlist" name="All Job Position"
+                  parent="extension_recruitment.menu_shortlist_view" action="action_view_hr_job_shortlist_kanban"
+                  sequence="2"/>
+
+        <!--        <menuitem id="menu_hr_view" name="Applied Shortlist by Head" parent="extension_recruitment.menu_shortlist_view"-->
+        <!--                  action="action_first_shortlist_view" sequence="10"/>-->
+
+        <record id="second_shortlist_tree_view" model="ir.ui.view">
+            <field name="name">second.shortlist.tree.view</field>
+            <field name="model">second.shortlist</field>
+            <field name="arch" type="xml">
+                <tree string="Recommended by Dean">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="user_id"/>
+                    <field name="applicant"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="second_shortlist_form_view" model="ir.ui.view">
+            <field name="name">second.shortlist.form.view</field>
+            <field name="model">second.shortlist</field>
+            <field name="arch" type="xml">
+                <form string="Recommended by Dean">
+                    <sheet>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" name="toggle_active" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options="{'terminology': 'archive'}"
+                                       invisible="1"/>
+                                <span name="active" class="o_stat_text text-success"
+                                      attrs="{'invisible': [('active', '=', False)]}">Active
+                                </span>
+                                <span name="active" class="o_stat_text text-danger"
+                                      attrs="{'invisible': [('active', '=', True)]}">Deactive
+                                </span>
+                            </button>
+                        </div>
+                        <field name="code" readonly="1"/>
+                        <group>
+                            <field name="name" widget="many2one_tags"/>
+                            <field name="department_id"/>
+                        </group>
+                        <group>
+                            <field name="user_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="applicant" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="partner_name"/>
+                                    <field name="father_name"/>
+                                    <field name="email_from"/>
+                                    <field name="partner_mobile"/>
+                                    <field name="applicant_education" widget="many2many"/>
+                                    <field name="invoice_payment_status"/>
+                                    <field name="image" widget="image" class="oe_avatar oe_right"/>
+                                    <field name="resume_embed_code" class="mt-2" widget="video_preview"/>
+                                    <field name="demo_embed_code" class="mt-2" widget="video_preview"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_second_shortlist_view" model="ir.actions.act_window">
+            <field name="name">Recommended by Dean</field>
+            <field name="res_model">second.shortlist</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="second_shortlist_tree_view"/>
+        </record>
+
+
+        <!--        <menuitem id="menu_head_view" name="Recommended by Dean" parent="extension_recruitment.menu_shortlist_view"-->
+        <!--                  action="action_second_shortlist_view" sequence="15"/>-->
+
+        <record id="final_shortlist_tree_view" model="ir.ui.view">
+            <field name="name">final.shortlist.tree.view</field>
+            <field name="model">final.shortlist</field>
+            <field name="arch" type="xml">
+                <tree string="Final Shortlisted">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="user_id"/>
+                    <field name="applicant"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="final_shortlist_form_view" model="ir.ui.view">
+            <field name="name">final.shortlist.form.view</field>
+            <field name="model">final.shortlist</field>
+            <field name="arch" type="xml">
+                <form string="Final Shortlisted">
+                    <sheet>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" name="toggle_active" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options="{'terminology': 'archive'}"
+                                       invisible="1"/>
+                                <span name="active" class="o_stat_text text-success"
+                                      attrs="{'invisible': [('active', '=', False)]}">Active
+                                </span>
+                                <span name="active" class="o_stat_text text-danger"
+                                      attrs="{'invisible': [('active', '=', True)]}">Deactive
+                                </span>
+                            </button>
+                        </div>
+                        <field name="code" readonly="1"/>
+                        <group>
+                            <field name="name" widget="many2one_tags"/>
+                            <field name="department_id"/>
+                        </group>
+                        <group>
+                            <field name="user_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="applicant" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="partner_name"/>
+                                    <field name="father_name"/>
+                                    <field name="email_from"/>
+                                    <field name="partner_mobile"/>
+                                    <field name="invoice_payment_status"/>
+                                    <field name="image" widget="image" class="oe_avatar oe_right"/>
+                                    <field name="resume_embed_code" class="mt-2" widget="video_preview"/>
+                                    <field name="demo_embed_code" class="mt-2" widget="video_preview"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_final_shortlist_view" model="ir.actions.act_window">
+            <field name="name">Final Shortlisted</field>
+            <field name="res_model">final.shortlist</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="final_shortlist_tree_view"/>
+        </record>
+
+
+        <!--        <menuitem id="menu_dean_view" name="Final Shortlisted" parent="extension_recruitment.menu_shortlist_view"-->
+        <!--                  action="action_final_shortlist_view" sequence="20"/>-->
+
+
+    </data>
+</odoo>

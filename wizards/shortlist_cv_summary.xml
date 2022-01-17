@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="shortlist_cv_report_form">
+            <field name="name">shortlist.cv.report.form</field>
+            <field name="model">shortlist.cv.report</field>
+            <field name="arch" type="xml">
+                <form string="Applicant CV Summary">
+                    <group>
+                        <field name="course_id" />
+                        <field name="campus_id" />
+                        <field name="semester_id" />
+                        <field name="semester_year" autocomplete="off" options="{'datepicker': {'showType': 'years'}}" required="True"/>
+                    </group>
+                    <footer groups="base.group_user">
+                        <button name="check_report" type="object"
+                            string="Print" class="oe_highlight" />
+                        <button string="Cancel" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="program_and_campus_wise_student_list_form_act">
+            <field name="name">Program And Campus Wise Student Report</field>
+            <field name="res_model">program.campus.wise.list</field>
+            <field name="binding_type">report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="program_and_campus_wise_student_list_form" />
+            <field name="context">{}</field>
+            <field name="target">new</field>
+        </record>
+
+<!--        <menuitem id="menu_admitted_list"-->
+<!--                  name="Program And Campus Wise Admitted Student List"-->
+<!--                  sequence="10"-->
+<!--                  parent="openeducat_admission.menu_admission_report_root"-->
+<!--                  action="daffodil_admission_extension_report.program_and_campus_wise_student_list_form_act"-->
+<!--                  />-->
+    </data>
+</odoo>

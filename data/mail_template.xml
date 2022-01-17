@@ -1,0 +1,25 @@
+<data noupdate="1">
+<!--    <record id="job_position_email_template" model="mail.template">-->
+<!--        <field name="name">Job Position: Send by email</field>-->
+<!--        <field name="model_id" ref="extension_recruitment.model_hr_job"/>-->
+<!--        <field name="email_from">${object.user_id.email_formatted |safe}</field>-->
+<!--        <field name="email_to">${object.application_ids.email_from}</field>-->
+<!--        <field name="subject">Job Position (Ref ${object.name})</field>-->
+<!--        <field name="body_html" type="html">-->
+<!--            <div style="margin: 0px; padding: 0px;">-->
+<!--                <p style="margin: 0px; padding: 0px; font-size: 13px;">-->
+<!--                    Dear ${object.application_ids}-->
+<!--                    <br /><br />-->
+<!--                    Here is your patient card with reference ${object.name}-->
+<!--                    <br /><br />-->
+<!--                    Age:${object.application_ids.partner_name}-->
+<!--                    Contact Number:${object.application_ids.partner_mobile}-->
+<!--                    <br /><br />-->
+<!--                   if you have queries feel free to ask.-->
+<!--                </p>-->
+<!--            </div>-->
+<!--        </field>-->
+<!--        <field name="report_template" ref="job_applicant_admit_card_id" />-->
+<!--        <field name="report_name">Job Position_${object.name}</field>-->
+<!--    </record>-->
+</data>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="custom_paper_format_portrait_for_job" model="report.paperformat">
+            <field name="name">Custom Report A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">12</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">22</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                id="job_applicant_admit_card_id"
+                model="hr.applicant"
+                report_type="qweb-html"
+                string="Job Admit Card"
+                print_report_name="'%s' %(object._get_report_base_filename())"
+                name="extension_recruitment.report_job_admit_card_receipt_template"
+                file="extension_recruitment.report_job_admit_card_receipt_template"
+                paperformat="custom_paper_format_portrait_for_job"
+                attachment_use="True"
+        />
+
+        <template id="report_job_admit_card_receipt_template">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                        <t t-set="data" t-value="docs[0]"/>
+                        <!--  Report Header  -->
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12 col-12 text-center">
+                                <img clas="img-fluid" style="max-width: 420px;" t-if="data.company_id.logo"
+                                     t-att-src="image_data_uri(data.company_id.logo)" t-att-alt="data.company_id.name"/>
+                                <h6 style="margin-top: 10px;">Daffodil Family, 102/1, Sukrabad, Mirpur Road, Dhanmondi,
+                                    Dhaka-1207, Bangladesh.
+                                </h6>
+                                <hr/>
+                            </div>
+                        </div>
+                        <!--  Report Title  -->
+                        <div class="row" style="margin-top: 20px;">
+                            <div class="col-xs-12 col-md-12 col-12">
+                                <h4 class="text-center" style="font-weight: bold;">Admit Card for
+                                    <span t-if="data.job_id" t-esc="data.job_id" t-field="data.job_id"/>
+                                </h4>
+                            </div>
+                        </div>
+                        <!--  Report Details  -->
+                        <div class="row border border-dark" style="margin-top: 30px;">
+                            <div class="col-xs-8 col-md-8 col-sm-8 col-8 mt-3">
+                                <h5>
+                                    Applicant Roll:
+                                    <b>
+                                        <span t-if="data.exam_roll" t-esc="data.exam_roll"/>
+                                    </b>
+                                </h5>
+                                <h5>
+                                    Applicant Name:
+                                    <b>
+                                        <span t-if="data.partner_name" t-esc="data.partner_name"/>
+                                    </b>
+                                </h5>
+                                <h5>
+                                    Father Name:
+                                    <b>
+                                        <span t-if="data.job_applicant_id.father" t-esc="data.job_applicant_id.father"/>
+                                    </b>
+                                </h5>
+                                <h5>
+                                    Mother Name:
+                                    <b>
+                                        <span t-if="data.job_applicant_id.mother" t-esc="data.job_applicant_id.mother"/>
+                                    </b>
+                                </h5>
+                                <h5>
+                                    Venue Name:
+                                    <b>
+                                        <span t-if="data.written_admit_card.exam_venue"
+                                              t-esc="data.written_admit_card.exam_venue"
+                                              t-field="data.written_admit_card.exam_venue"/>
+                                    </b>
+                                </h5>
+                                <h5>
+                                    Exam Date/time:
+                                    <b>
+                                        <span t-if="data.written_admit_card.written_exam_date"
+                                              t-esc="data.written_admit_card.written_exam_date"
+                                              t-field="data.written_admit_card.written_exam_date" t-options='{"widget": "date", "format": "dd MMM Y"}'/>,
+                                        <t t-esc="'%02d:%02d' % (int(str(data.written_admit_card.written_exam_time).split('.')[0]), int(float(str('%.2f' % data.written_admit_card.written_exam_time).split('.')[1])/100*60))"/>
+
+                                    </b>
+                                </h5>
+                                <br/>
+                                <br/>
+                                <img clas="img-fluid" style="max-width: 300px; max-height: 80px;"
+                                     t-if="data.job_applicant_id.applicant_signature"
+                                     t-att-src="image_data_uri(data.job_applicant_id.applicant_signature)"
+                                     t-att-alt="data.job_applicant_id.applicant_signature"/>
+                                <h5>-----------------------------</h5>
+                                <h5>Applicant Signature</h5>
+                                <br/>
+                            </div>
+                            <div class="row col-xs-4 col-md-4 col-sm-4 col-4 ">
+                                <div class="col-xs-8 col-md-8 col-sm-8 col-8 ml-10">
+                                    <img clas="img-fluid" style="max-width: 250px; max-height: 250px; margin-top:35px;"
+                                         t-if="data.job_applicant_id.image_id"
+                                         t-att-src="image_data_uri(data.job_applicant_id.image_id)"
+                                         t-att-alt="data.job_applicant_id.image_id"/>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <center>
+                            <font style="font-family: Verdana; font-weight: bold; font-size: 20px;">Instructions to the
+                                Job Candidate
+                            </font>
+                        </center>
+                        <br>
+                            <font style="font-family: Verdana; font-size: 15px;">
+                                <p style="margin-left: 100px; margin-right: 100px; font-family: Robota;">1. This Admit
+                                    Card must be presented for verification at the time of examination, along with at
+                                    least one original(not photocopied or scanned copy) and valid (not expired) photo
+                                    identification card (e.g : NID Card, Birth-Certificate Card).
+                                </p>
+                                <p style="margin-left: 100px; margin-right: 100px; font-family: Robota;">
+                                    2. This Admit Card is valid only if the candidate's photograph and signature images
+                                    are
+                                    <b>legibly printed</b>
+                                    . Print this on an A4 sized paper using a laser printer preferably a color photo
+                                    printer.
+                                </p>
+                                <p style="margin-left: 100px; margin-right: 100px; font-family: Robota;">
+                                    3. Candidates should occupy their allowed seats
+                                    <b>25 minutes before</b>
+                                    the scheduled start of the examination.
+                                </p>
+                                <p style="margin-left: 100px; margin-right: 100px; font-family: Robota;">
+                                    4. Candidates will not be allowed to enter the examination hall
+                                    <b>30 minutes</b>
+                                    after the commencement of the examination.
+                                </p>
+                                <p style="margin-left: 100px; margin-right: 100px; font-family: Robota;">5. Mobile
+                                    phones or any other Electronic gadgets are NOT ALLOWED inside the examination hall.
+                                    There may not be any facility for the safe-keeping of your gadget outside the hall,
+                                    so it may be easier to leave it at your residence.
+                                </p>
+                            </font>
+                        </br>
+                        <!--  Report Footer  -->
+                        <div class="footer">
+                            <div class="row" style="margin-top: 50px;">
+                                <div class="col-xs-12 col-md-12 col-12">
+<!--                                    <p style="font-weight: bold;">N.B: Please preserve this receipt for your safety.</p>-->
+<!--                                    <hr style="border-top: 1px solid black;"/>-->
+                                    <ul class="list-inline text-center">
+                                        <li class="list-inline-item">
+                                            Phone:
+                                            <span>+8801991195535</span>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            Email:
+                                            <span>pd@daffodilvarsity.edu.bd</span>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            Web:
+                                            <span>http://diu.edu.bd</span>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <span>E-Recruitment System</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

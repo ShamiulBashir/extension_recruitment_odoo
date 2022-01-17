@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="custom_paper_format_portrait_for_written" model="report.paperformat">
+            <field name="name">Custom Report A4</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">12</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">22</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+            id="report_job_written_exam_list"
+            model="hr.applicant"
+            report_type="qweb-html"
+            string="Job Written Exam List"
+            print_report_name="'Job Written Exam List of %s' %(object.partner_id)"
+            name="extension_recruitment.report_job_written_exam_list_receipt_template"
+            file="extension_recruitment.report_job_written_exam_list_receipt_template"
+            paperformat="custom_paper_format_portrait_for_written"
+            attachment_use="False"
+        />
+
+        <template id="report_job_written_exam_list_receipt_template">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+
+                        <t t-set="data" t-value="docs[0]"/>
+
+                        <!-- Report Header -->
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12 col-12 text-center">
+                                <img clas="img-fluid" style="max-width: 420px;"
+                                    t-if="data.company_id.logo"
+                                    t-att-src="image_data_uri(data.company_id.logo)"
+                                    t-att-alt="data.company_id.name"/>
+                                <h6 style="margin-top: 10px;">Daffodil Family, 102/1, Sukrabad, Mirpur Road, Dhanmondi, Dhaka-1207, Bangladesh.</h6>
+                                <hr/>
+                            </div>
+                        </div>
+                         <t t-if="data.job_applicant_written_mark.state_id == 'selected' ">
+                              <!-- Report Title -->
+                             <div class="row" style="margin-top: 20px; padding: 20px;">
+                                 <div class="col-xs-12 col-md-12 col-12">
+                                     <h4 class="text-center" style="font-weight: bold;">Selected Applicant Total Marks</h4>
+                                     <h5 class="text-center" style="font-weight: bold;">Job Title: <b><span t-if="data.job_id" t-esc="data.job_id" t-field="data.job_id"/></b></h5>
+                                 </div>
+                             </div>
+
+                            <!-- Report Details -->
+                             <table t-if="data" class="table table-bordered">
+                                 <thead>
+                                    <tr class="active">
+                                        <th>Serial</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Written Marks</th>
+                                        <th>Demo Marks</th>
+                                        <th>Viva Marks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="data" t-as="app">
+                                        <td><span t-esc="app.exam_roll" /></td>
+                                        <td><span t-esc="app.partner_name" /></td>
+                                        <td><span t-esc="app.email_from" /></td>
+                                        <td><span t-esc="app.partner_phone" /></td>
+                                        <td><span t-esc="app.job_applicant_written_mark.total_written_mark" /></td>
+                                        <td><span t-esc="app.job_applicant_demo_mark.total_demo_mark" /></td>
+                                        <td><span t-esc="app.job_applicant_viva_mark.total_viva_mark" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                            <!-- Report Footer -->
+                            <div class="row" style="margin-top: 50px;">
+                                <div class="col-xs-12 col-md-12 col-12">
+                                    <p style="font-weight: bold;">N.B: Please preserve this receipt for your safety.</p>
+                                    <hr style="border-top: 1px solid black;"/>
+                                    <ul class="list-inline text-center">
+                                        <li class="list-inline-item">Phone: <span>+8801991195535</span></li>
+                                        <li class="list-inline-item">Email: <span>pd@daffodilvarsity.edu.bd</span></li>
+                                        <li class="list-inline-item">Web: <span>http://diu.edu.bd</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                         </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

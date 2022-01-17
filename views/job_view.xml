@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!--inherit View -->
+        <record id="view_hr_job_form" model="ir.ui.view">
+            <field name="name">hr.job.form.inherit</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr.view_hr_job_form"/>
+            <field name="arch" type="xml">
+                <div class="oe_button_box" name="button_box" position="inside">
+                    <button class="oe_stat_button" name="job_meeting_button" type="object" icon="fa-bars">
+                        <field name="meeting_job_count" widget="statinfo" string="Meeting"/>
+                    </button>
+                    <button class="oe_stat_button" name="hr_state_button" type="object" icon="fa-bars">
+                        <field name="bkash_application_count" widget="statinfo" string="Hr"/>
+                    </button>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"/>
+                    <field name="active" invisible="1"/>
+                </div>
+                <xpath expr="//div[@class='oe_title']" position="replace">
+                    <div class="oe_title">
+                        <label for="name" string="Job Title" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. Sales Manager"/>
+                        </h1>
+                    </div>
+                </xpath>
+                <xpath expr="//group" position="replace">
+
+                    <notebook>
+                        <page id="job_tab_entry" string="Job Details" name="details">
+                            <group>
+                                <group>
+                                    <field name="job_category" string="Employment Type"/>
+                                    <field name="post_type" string="Apply For"/>
+                                    <field name="subject"/>
+                                </group>
+                                <group>
+                                    <field name="no_of_recruitment" string="No. of vacancies"/>
+                                    <label for="survey_id" groups="survey.group_survey_user"/>
+                                    <div groups="survey.group_survey_user" class="o_row">
+                                        <field name="survey_id"
+                                               context="{'default_category': 'hr_recruitment', 'default_access_mode': 'token'}"/>
+                                        <button string="Display Interview Form" name="action_print_survey" type="object"
+                                                attrs="{'invisible':[('survey_id','=',False)]}" class="oe_link"/>
+                                    </div>
+                                    <field name="user_id" string="Responsible"/>
+                                </group>
+                                <group name="recruitment">
+                                    <field name="company_id" options="{'no_create': True}"
+                                           groups="base.group_multi_company"/>
+                                    <field name="website_id"/>
+                                    <field name="department_id"/>
+                                    <!--                                    <field name="hr_applicant_ids" widget="many2many_tags"/>-->
+                                    <field name="address_id" string="Job Location"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page id="website_tab_entry" string="Website" name="website">
+                            <group>
+                                <group>
+                                    <field name="education_requirements"/>
+                                    <field name="additional_requirements"/>
+                                    <field name="experience"/>
+                                </group>
+                                <group>
+                                    <field name="position_responsibilities"/>
+                                    <field name="other_benefits"/>
+                                    <field name="required_reference"/>
+                                </group>
+                                <group>
+                                    <field name="gender"/>
+                                    <field name="salary_range"/>
+                                    <field name="age_range"/>
+                                </group>
+                                <group>
+                                    <field name="payment_allow" nolabel="1"/>
+                                    <lable>Is Job Payment Applicable?</lable>
+                                    <field name="product_line_id" string="Amount Title" widget="many2one"
+                                           attrs="{'invisible': [('payment_allow', '=', False)]}"/>
+                                    <field name="amount" string="Amount Fee"
+                                           attrs="{'invisible': [('payment_allow', '=', False)]}"/>
+                                    <field name="amount_name" invisible="1"/>
+                                </group>
+                                <group>
+                                    <field name="end_date"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_recruitment.crm_case_graph_view_job">
+            <field name="name">Jobs - Recruitment Graph</field>
+            <field name="model">hr.applicant</field>
+            <field name="arch" type="xml">
+                <graph string="Application" type="pie">
+                    <field name="department_id"/>
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="crm_case_graph_view_job_position">
+            <field name="name">Jobs - Recruitment Graph</field>
+            <field name="model">hr.applicant</field>
+            <field name="arch" type="xml">
+                <graph string="Application" type="pie">
+                    <field name="job_id"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- graph view of the appointment model -->
+        <record id="job_position_graph_view_form" model="ir.ui.view">
+            <field name="name">hr.job.graph</field>
+            <field name="model">hr.job</field>
+            <field name="arch" type="xml">
+                <graph string="Job Position Graph" type="pie">
+                    <field name="name"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="hr_job_view_pivot" model="ir.ui.view">
+            <field name="name">hr.applicant.pivot</field>
+            <field name="model">hr.applicant</field>
+            <field name="arch" type="xml">
+                <pivot string="Total Job Position">
+                    <field name="job_id" type="row"/>
+                    <field name="create_date" type="col"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- hr related job position menu action -->
+        <record model="ir.actions.act_window" id="hr_recruitment.action_hr_job">
+            <field name="name">Job Positions</field>
+            <field name="res_model">hr.job</field>
+            <field name="view_mode">kanban,form,graph,pivot</field>
+            <field name="view_id" ref="hr_recruitment.view_hr_job_kanban"/>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Ready to recruit more efficiently?
+                </p>
+                <p>
+                    Let's create a job position.
+                </p>
+            </field>
+        </record>
+
+        <!-- inherit View  -->
+        <record id="hr_applicant_view_form" model="ir.ui.view">
+            <field name="name">hr.applicant.form.inherit</field>
+            <field name="model">hr.applicant</field>
+            <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="after">
+                    <header>
+                        <button type="object"
+                                class="btn btn-primary"
+                                string="Accounts Approve"
+                                name="action_hr_application_state_accounts"
+                                groups="extension_recruitment.group_recruitment_management_administrator,extension_recruitment.group_recruitment_accounts"
+                                attrs="{'invisible': [('hr_application_state','!=','pay')]}"/>
+
+
+                        <button class="btn btn-primary"
+                                name="action_hr_application_state_applied"
+                                type="object"
+                                string="Department of Head Approve"
+                                groups="extension_recruitment.group_recruitment_management_administrator,extension_recruitment.group_recruitment_head"
+                                attrs="{'invisible': [('hr_application_state','!=','applied')]}"
+                        />
+                        <button class="btn btn-primary"
+                                name="action_hr_application_state_recommendation"
+                                type="object"
+                                string="Faculty of Dean Approve"
+                                groups="extension_recruitment.group_recruitment_management_administrator,extension_recruitment.group_recruitment_dean"
+                                attrs="{'invisible': [('hr_application_state','!=','recommendation')]}"
+                        />
+
+                        <field name="hr_application_state" widget="statusbar"/>
+                    </header>
+                </xpath>
+                <xpath expr="//sheet" position="replace">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <!--                            <field name="applicant_state_id" widget="statusbar" options="{'clickable': '1'}"/>-->
+                            <button name="action_applications_email" class="oe_stat_button" icon="fa-pencil"
+                                    type="object" attrs="{'invisible': [('application_count', '=', 0)]}">
+                                <field name="application_count" widget="statinfo" string="Other Applications"/>
+                            </button>
+                            <button name="action_makeMeeting" class="oe_stat_button" icon="fa-calendar" type="object"
+                                    help="Schedule interview with this applicant">
+                                <field name="meeting_count" widget="statinfo" string="Meetings"/>
+                            </button>
+                            <button name="action_start_survey" class="oe_stat_button" icon="fa-user" type="object"
+                                    help="Answer related job question" context="{'survey_id': survey_id}"
+                                    attrs="{'invisible':[('survey_id','=',False)]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Start</span>
+                                    <span class="o_stat_text">Interview</span>
+                                </div>
+                            </button>
+                            <button name="action_print_survey" class="oe_stat_button" icon="fa-print" type="object"
+                                    help="Print interview report" attrs="{'invisible':[('survey_id','=',False)]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Print</span>
+                                    <span class="o_stat_text">Interview</span>
+                                </div>
+                            </button>
+                        </div>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <field name="kanban_state" widget="kanban_state_selection"/>
+                        <field name="active" invisible="1"/>
+                        <field name="legend_normal" invisible="1"/>
+                        <field name="legend_blocked" invisible="1"/>
+                        <field name="legend_done" invisible="1"/>
+                        <!--                        <group>-->
+                        <!--                            <field name="exam_roll"/>-->
+                        <!--                        </group>-->
+                        <div class="oe_title">
+                            <!--                            <field name="image" widget="image" class="oe_avatar oe_right"/>-->
+                            <label for="partner_name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="partner_name"/>
+                            </h1>
+                        </div>
+                        <notebook>
+                            <page id="details_tab_entry" string="Details" name="details">
+                                <group>
+                                    <group>
+                                        <field name="partner_id" invisible="1"/>
+                                        <field name="email_from" widget="email"/>
+                                        <field name="partner_phone" widget="phone"/>
+                                        <field name="partner_mobile" widget="phone"/>
+                                        <field name="survey_id" invisible="1"/>
+                                        <field name="response_id" invisible="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="categ_ids" widget="many2many_tags"
+                                               options="{'color_field': 'color', 'no_create_edit': True}"/>
+                                        <field name="message"/>
+                                        <field name="priority" widget="priority"/>
+                                    </group>
+                                    <group string="Job">
+                                        <field name="job_id"/>
+                                        <field name="department_id"/>
+                                        <field name="company_id" groups="base.group_multi_company"
+                                               options="{&quot;no_open&quot;:True}"/>
+                                        <field name="job_applicant_id"/>
+                                    </group>
+                                    <group string="Contract">
+                                        <label for="salary_expected"/>
+                                        <div class="o_row">
+                                            <field name="salary_expected"/>
+                                            <span attrs="{'invisible':[('salary_expected_extra','=',False)]}">+</span>
+                                            <field name="salary_expected_extra" placeholder="Extra advantages..."/>
+                                        </div>
+                                        <label for="salary_proposed"/>
+                                        <div class="o_row">
+                                            <field name="salary_proposed"/>
+                                            <span attrs="{'invisible':[('salary_proposed_extra','=',False)]}">+</span>
+                                            <field name="salary_proposed_extra" placeholder="Extra advantages..."/>
+                                        </div>
+                                        <field name="availability"/>
+                                        <field name="written_admit_card"/>
+                                        <field name="emp_id" invisible="1"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="resume"/>
+                                        <!--                                        <field name="exam_roll"/>-->
+                                        <!--                                        <field name="exam_date"/>-->
+                                    </group>
+                                    <!--                                    <group>-->
+                                    <!--                                        <field name="exam_venue" widget="many2one"/>-->
+                                    <!--                                    </group>-->
+                                </group>
+                                <separator string="Application Summary"/>
+                                <field name="description" placeholder="Feedback of interviews..."/>
+                            </page>
+                            <page id="payment_tab_entry" string="Payment" name="payment">
+                                <group>
+
+                                    <group>
+                                        <field name="account_move_id"/>
+                                        <field name="invoice_payment_status"/>
+                                    </group>
+                                    <!--                                    <group>-->
+                                    <!--                                        <field name="applicant_education" nolabel="1">-->
+                                    <!--                                            <tree editable="bottom">-->
+                                    <!--                                                <field name="exam_degree_title_name"/>-->
+                                    <!--                                                <field name="concentration_major_group_name"/>-->
+                                    <!--                                                <field name="board_name"/>-->
+                                    <!--                                                <field name="institute_name"/>-->
+                                    <!--                                                <field name="cgpa"/>-->
+                                    <!--                                                <field name="mark"/>-->
+                                    <!--                                                <field name="scale"/>-->
+                                    <!--                                                <field name="passing_year"/>-->
+                                    <!--                                            </tree>-->
+                                    <!--                                        </field>-->
+                                    <!--                                    </group>-->
+                                </group>
+                            </page>
+                            <page id="written_info" string="Written Exam Marks">
+                                <field name="job_applicant_written_mark" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="job_id"/>
+                                        <field name="english"/>
+                                        <field name="computer_literacy"/>
+                                        <field name="subjective"/>
+                                        <field name="demo_marks"/>
+                                        <field name="general_knowledge"/>
+                                        <field name="total_written_mark"/>
+                                        <field name="comments"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page id="demo_info" string="Demo Exam Marks">
+                                <field name="job_applicant_demo_mark" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="job_id"/>
+                                        <field name="english"/>
+                                        <field name="computer_literacy"/>
+                                        <field name="subjective"/>
+                                        <field name="demo_marks"/>
+                                        <field name="general_knowledge"/>
+                                        <field name="total_demo_mark"/>
+                                        <field name="comments"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page id="viva_info" string="Viva Exam Marks">
+                                <field name="job_applicant_viva_mark" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="job_id"/>
+                                        <field name="english"/>
+                                        <field name="computer_literacy"/>
+                                        <field name="subjective"/>
+                                        <field name="demo_marks"/>
+                                        <field name="general_knowledge"/>
+                                        <field name="total_viva_mark"/>
+                                        <field name="comments"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <!--                            <page id="admit_info" string="Admit Card">-->
+                            <!--                                <field name="written_admit_card_info" nolabel="1">-->
+                            <!--                                    <tree editable="bottom">-->
+                            <!--                                        <field name="name"/>-->
+                            <!--                                        <field name="written_exam_date"/>-->
+                            <!--                                        <field name="exam_venue"/>-->
+                            <!--                                    </tree>-->
+                            <!--                                </field>-->
+                            <!--                            </page>-->
+                        </notebook>
+                    </sheet>
+
+
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- inherit tree  -->
+        <record id="view_hr_job_tree_inherit" model="ir.ui.view">
+            <field name="name">hr.job.tree.inherit</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr.view_hr_job_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="replace">
+                    <tree string="Job" decoration-bf="message_needaction==True">
+                        <field name="name"/>
+                        <field name="department_id"/>
+                        <field name="application_count"/>
+                        <field name="message_needaction" invisible="1"/>
+                    </tree>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_applicant_view_tree" model="ir.ui.view">
+            <field name="name">hr.applicant.tree.inherit</field>
+            <field name="model">hr.applicant</field>
+            <field name="inherit_id" ref="hr_recruitment.crm_case_tree_view_job"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="replace">
+                    <tree string="Applicants" decoration-bf="message_needaction==True">
+                        <field name="message_needaction" invisible="1"/>
+                        <field name="last_stage_id" invisible="1"/>
+                        <field name="create_date"/>
+                        <field name="date_last_stage_update" invisible="1"/>
+                        <field name="partner_name"/>
+                        <field name="email_from"/>
+                        <field name="partner_mobile"/>
+                        <field name="job_id"/>
+                        <field name="hr_application_stage"/>
+                        <field name="invoice_payment_status"/>
+                    </tree>
+
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Search View -->
+        <record id="diu_job_category_search_view" model="ir.ui.view">
+            <field name="name">diu.job.category.search.view</field>
+            <field name="model">diu.job.category</field>
+            <field name="arch" type="xml">
+                <search string="Job Category">
+                    <field name="name" string="Name" filter_domain="[('name','ilike',self)]"/>
+                    <field name="notes" string="Notes" filter_domain="[('notes','ilike',self)]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="diu_job_category_tree_view" model="ir.ui.view">
+            <field name="name">diu.job.category.tree.view</field>
+            <field name="model">diu.job.category</field>
+            <field name="arch" type="xml">
+                <tree string="Job Category">
+                    <field name="name"/>
+                    <field name="notes"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="diu_job_category_form_view" model="ir.ui.view">
+            <field name="name">diu.job.category.form.view</field>
+            <field name="model">diu.job.category</field>
+            <field name="arch" type="xml">
+                <form string="Job Category">
+                    <sheet>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" name="toggle_active" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options="{'terminology': 'archive'}"
+                                       invisible="1"/>
+                                <span name="active" class="o_stat_text text-success"
+                                      attrs="{'invisible': [('active', '=', False)]}">Active
+                                </span>
+                                <span name="active" class="o_stat_text text-danger"
+                                      attrs="{'invisible': [('active', '=', True)]}">Deactive
+                                </span>
+                            </button>
+                        </div>
+                        <group>
+                            <field name="name"/>
+                            <field name="notes"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_diu_job_category_view" model="ir.actions.act_window">
+            <field name="name">Job Category</field>
+            <field name="res_model">diu.job.category</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="diu_job_category_tree_view"/>
+        </record>
+
+        <menuitem id="menu_job_category" name="Job Category" parent="hr_recruitment.menu_hr_recruitment_configuration"
+                  action="action_diu_job_category_view"/>
+
+        <!-- Search View -->
+        <record id="post_category_search_view" model="ir.ui.view">
+            <field name="name">post.category.search.view</field>
+            <field name="model">post.category</field>
+            <field name="arch" type="xml">
+                <search string="Post Category">
+                    <field name="name" string="Name" filter_domain="[('name','ilike',self)]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="post_category_tree_view" model="ir.ui.view">
+            <field name="name">post.category.tree.view</field>
+            <field name="model">post.category</field>
+            <field name="arch" type="xml">
+                <tree string="Post Category">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="post_category_form_view" model="ir.ui.view">
+            <field name="name">post.category.form.view</field>
+            <field name="model">post.category</field>
+            <field name="arch" type="xml">
+                <form string="Post Category">
+                    <sheet>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" name="toggle_active" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options="{'terminology': 'archive'}"
+                                       invisible="1"/>
+                                <span name="active" class="o_stat_text text-success"
+                                      attrs="{'invisible': [('active', '=', False)]}">Active
+                                </span>
+                                <span name="active" class="o_stat_text text-danger"
+                                      attrs="{'invisible': [('active', '=', True)]}">Deactive
+                                </span>
+                            </button>
+                        </div>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_post_category_view" model="ir.actions.act_window">
+            <field name="name">Post Category</field>
+            <field name="res_model">post.category</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="post_category_tree_view"/>
+        </record>
+
+        <menuitem id="menu_post_type" name="Post Type" parent="hr_recruitment.menu_hr_recruitment_configuration"
+                  action="action_post_category_view"/>
+
+        <!-- Search View -->
+        <record id="venue_search_view" model="ir.ui.view">
+            <field name="name">venue.search.view</field>
+            <field name="model">venue</field>
+            <field name="arch" type="xml">
+                <search string="Job Venue/Center">
+                    <field name="name" string="Name" filter_domain="[('name','ilike',self)]"/>
+                    <field name="address" string="Notes" filter_domain="[('address','ilike',self)]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="venue_tree_view" model="ir.ui.view">
+            <field name="name">venue.tree.view</field>
+            <field name="model">venue</field>
+            <field name="arch" type="xml">
+                <tree string="Job Category">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="address"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="venue_form_view" model="ir.ui.view">
+            <field name="name">venue.form.view</field>
+            <field name="model">venue</field>
+            <field name="arch" type="xml">
+                <form string="Job Venue/Center">
+                    <sheet>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" name="toggle_active" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options="{'terminology': 'archive'}"
+                                       invisible="1"/>
+                                <span name="active" class="o_stat_text text-success"
+                                      attrs="{'invisible': [('active', '=', False)]}">Active
+                                </span>
+                                <span name="active" class="o_stat_text text-danger"
+                                      attrs="{'invisible': [('active', '=', True)]}">Deactive
+                                </span>
+                            </button>
+                        </div>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+                            <field name="address"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_venue_view" model="ir.actions.act_window">
+            <field name="name">Job Venue/Center</field>
+            <field name="res_model">venue</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="venue_tree_view"/>
+        </record>
+
+        <menuitem id="menu_venue_view" name="Job Venue/Center" parent="hr_recruitment.menu_hr_recruitment_configuration"
+                  action="action_venue_view"/>
+
+
+    </data>
+</odoo>
