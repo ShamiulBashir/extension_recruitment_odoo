@@ -616,6 +616,5 @@
         <menuitem id="menu_venue_view" name="Job Venue/Center" parent="hr_recruitment.menu_hr_recruitment_configuration"
                   action="action_venue_view"/>
 
-
     </data>
 </odoo>

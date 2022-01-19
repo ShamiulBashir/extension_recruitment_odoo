@@ -208,22 +208,6 @@ class WrittenAdmitCard(models.Model):
     @api.model
     def create(self, vals):
 
-        # hr_rec_exam_written = self.env['job.applicant.written.mark'].sudo().create({
-        #     'name': self.applicant,
-        #     'job_id': self.name.id,
-        # })
-        # print(hr_rec_exam_written)
-        # hr_rec_exam_demo = self.env['job.applicant.demo.mark'].sudo().create({
-        #     'name': self.applicant,
-        #     'job_id': self.name.id,
-        # })
-        # print(hr_rec_exam_demo)
-        # hr_rec_exam_viva = self.env['job.applicant.viva.mark'].sudo().create({
-        #     'name': self.applicant,
-        #     'job_id': self.name.id,
-        # })
-        # print(hr_rec_exam_viva)
-
         vals['code'] = self.env['ir.sequence'].next_by_code('written.admit.card')
         res = super(WrittenAdmitCard, self).create(vals)
         return res

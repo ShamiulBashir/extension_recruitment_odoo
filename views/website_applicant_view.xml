@@ -543,60 +543,7 @@
                                     </fieldset>
                                 </t>
                             </div>
-                            <!--                            <div class="container">-->
-                            <!--                                <fieldset class="scheduler-border">-->
-                            <!--                                         <legend class="scheduler-border">Result</legend>-->
-                            <!--                                    <div class="control-group">-->
-                            <!--                                        <table class="table table-bordered">-->
-                            <!--                                            <thead>-->
-                            <!--                                                <tr>-->
-                            <!--                                                    <th>Written</th>-->
-                            <!--                                                    <th>Demo</th>-->
-                            <!--                                                    <th>Viva</th>-->
-                            <!--                                                    <th>Road Map</th>-->
-                            <!--                                                </tr>-->
-                            <!--                                            </thead>-->
-                            <!--                                            <tbody>-->
-                            <!--                                                <tr>-->
-                            <!--                                                    <td>-->
-                            <!--                                                        <t t-if="hr_applicant_rec.job_applicant_written_mark">-->
-                            <!--                                                            <span t-esc="hr_applicant_rec.job_applicant_written_mark.state_id"/>-->
-                            <!--                                                        </t>-->
-                            <!--                                                        <t t-else="">-->
 
-                            <!--                                                        </t>-->
-                            <!--                                                    </td>-->
-                            <!--                                                    <td>-->
-                            <!--                                                        <t t-if="hr_applicant_rec.job_applicant_demo_mark">-->
-                            <!--                                                            <span t-esc="hr_applicant_rec.job_applicant_viva_mark.state_id"/>-->
-                            <!--                                                        </t>-->
-                            <!--                                                        <t t-else="">-->
-
-                            <!--                                                        </t>-->
-                            <!--                                                    </td>-->
-                            <!--                                                    <td>-->
-                            <!--                                                        <t t-if="hr_applicant_rec.job_applicant_viva_mark">-->
-                            <!--                                                            <span t-esc="hr_applicant_rec.job_applicant_viva_mark.state_id"/>-->
-                            <!--                                                        </t>-->
-                            <!--                                                        <t t-else="">-->
-
-                            <!--                                                        </t>-->
-                            <!--                                                    </td>-->
-                            <!--                                                    <td>-->
-                            <!--                                                        <t t-if="hr_applicant_rec.job_applicant_written_mark">-->
-                            <!--                                                            <span t-esc="hr_applicant_rec.job_applicant_written_mark.state_id"/>-->
-                            <!--                                                        </t>-->
-                            <!--                                                        <t t-else="">-->
-
-                            <!--                                                        </t>-->
-                            <!--                                                    </td>-->
-
-                            <!--                                                </tr>-->
-                            <!--                                            </tbody>-->
-                            <!--                                        </table>-->
-                            <!--                                    </div>-->
-                            <!--                                </fieldset>-->
-                            <!--                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -1283,12 +1230,6 @@
                                                                        t-att-value="job_applicant_rec['video_resumes']"
                                                                        placeholder="https://www.youtube.com/"/>
 
-                                                                <!--                                                                         </t>-->
-                                                                <!--                                                                        <input type="hidden" name="resume_video"-->
-                                                                <!--                                                                               class="hidden" value="1"/>-->
-                                                                <!--                                                                        <input type="file" name="video_resume"-->
-                                                                <!--                                                                               class="form-control-file"-->
-                                                                <!--                                                                               accept="video/*"/>-->
                                                             </td>
                                                             <td width="10%"
                                                                 style="padding:2px;border-bottom:1px solid #F2F9FF;"></td>
@@ -1309,35 +1250,13 @@
                                                                        class="form-control"
                                                                        t-att-value="job_applicant_rec['demo_videos']"
                                                                        placeholder="https://www.youtube.com/"/>
-                                                                <!--                                                                        <input type="hidden" name="class_demo_video"-->
-                                                                <!--                                                                               class="hidden" value="1"/>-->
-                                                                <!--                                                                        <input type="file" name="demo_video"-->
-                                                                <!--                                                                               class="form-control-file"-->
-                                                                <!--                                                                               accept="video/*"/>-->
                                                             </td>
                                                             <td width="10%"
                                                                 style="padding:2px;border-bottom:1px solid #F2F9FF;"></td>
                                                         </tr>
                                                     </table>
                                                 </fieldset>
-                                                <!--                                                        <div class="form-row">-->
-                                                <!--                                                            <div class="form-group col-md-6">-->
-                                                <!--                                                                <t t-if="job_applicant_rec"-->
-                                                <!--                                                                   t-foreach="job_applicant_rec" t-as="data">-->
-                                                <!--                                                                    <t t-if="data.video_resumes">-->
-                                                <!--                                                                        <iframe width="360" height="215" marginwidth="0" marginheight="0" frameborder="no" scrolling="no" style="border-width:0px;" class="embed-responsive-item" t-att-src="data.video_resumes"/>-->
-                                                <!--                                                                    </t>-->
-                                                <!--                                                                </t>-->
-                                                <!--                                                            </div>-->
-                                                <!--                                                            <div class="form-group col-md-6">-->
-                                                <!--                                                                <t t-if="job_applicant_rec"-->
-                                                <!--                                                                   t-foreach="job_applicant_rec" t-as="data">-->
-                                                <!--                                                                    <t t-if="data.demo_videos">-->
-                                                <!--                                                                        <iframe width="360" height="215" marginwidth="0" marginheight="0" frameborder="no" scrolling="no" style="border-width:0px;" class="embed-responsive-item" t-att-src="data.demo_videos"/>-->
-                                                <!--                                                                    </t>-->
-                                                <!--                                                                </t>-->
-                                                <!--                                                            </div>-->
-                                                <!--                                                        </div>-->
+
                                                 <t t-if="job_applicant_rec.video_resumes">
                                                     <div class="form-row">
                                                         <table class="table table-bordered">
@@ -1375,82 +1294,6 @@
                                     </div>
                                 </div>
 
-                                <!--                                     <div class="accordion-item">-->
-                                <!--                                        <h2 class="accordion-header" id="headingTwo">-->
-                                <!--                                          <button class="accordion-button" style="color: #0c63e4; background-color: #e7f1ff;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">-->
-                                <!--                                            Video Resume and Demo Class-->
-                                <!--                                          </button>-->
-                                <!--                                        </h2>-->
-                                <!--                                        <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">-->
-                                <!--                                          <div class="accordion-body">-->
-                                <!--                                               <fieldset class="scheduler-border">=-->
-                                <!--                                                   <legend class="scheduler-border">-->
-                                <!--                                                       <strong>Video Résumé and Demo class video link</strong></legend>-->
-                                <!--                                                    <form id="job_applicant_video_form" action="/my/jobs/account/video" method="POST" enctype="multipart/form-data">-->
-                                <!--                                                    <table width="100%" height="94" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" style="border: #F2F9FF solid 1px;-moz-border-radius: 5px 5px 5px 5px;-webkit-border-radius: 5px 5px 5px 5px;">-->
-                                <!--                                                        <tr>-->
-                                <!--                                                            <td width="20%" height="36" style="border-right:1px solid #F2F9FF;padding:2px;border-bottom:1px solid #F2F9FF;"><div class="allFieldName"><label class="required">Video Résumé Link </label> </div></td>-->
-                                <!--                                                            <td width="40%" style="padding:2px;border-bottom:1px solid #F2F9FF;">-->
-                                <!--                                                                <input name="video_resumes" type="text" id="video_resume" class="validate[]"/>-->
-                                <!--                &lt;!&ndash;                                                                 <input type="hidden" name="resume_video" class="hidden" value="1"/>&ndash;&gt;-->
-                                <!--&lt;!&ndash;                                                                <input type="file"  name="video_resume" class="form-control-file" accept="video/*"/>&ndash;&gt;-->
-                                <!--                                                            </td>-->
-                                <!--                                                            <td width="40%" style="padding:2px;border-bottom:1px solid #F2F9FF;"> </td>-->
-                                <!--                                                        </tr>-->
-                                <!--                                                        <tr>-->
-                                <!--                                                            <td height="28" style="border-right:1px solid #F2F9FF;padding:2px;border-bottom:1px solid #F2F9FF;"><div class="allFieldName"> <label class="required">Demo Class Video Link </label> </div></td>-->
-                                <!--                                                            <td style="padding:2px;border-bottom:1px solid #F2F9FF;">-->
-                                <!--                                                                <input name="demo_videos" type="text" id="demo_video" class="validate[]" />-->
-                                <!--                &lt;!&ndash;                                                                 <input type="hidden" name="class_demo_video" class="hidden" value="1"/>&ndash;&gt;-->
-                                <!--&lt;!&ndash;                                                                <input type="file"  name="demo_video" class="form-control-file" accept="video/*"/>&ndash;&gt;-->
-                                <!--                                                            </td>-->
-                                <!--                                                            <td width="40%" style="padding:2px;border-bottom:1px solid #F2F9FF;"> </td>-->
-                                <!--                                                        </tr>-->
-                                <!--                                                    </table>-->
-                                <!--                                                    </form>-->
-                                <!--                                                </fieldset>-->
-                                <!--                                               <div class="form-row">-->
-                                <!--                                                        <div class="form-group col-md-7 mt-4">-->
-                                <!--                                                            <div class="form-row button-space">-->
-                                <!--                                                                <div class="form-group col-md-4">-->
-                                <!--                                                                    <button type="button" id="video_save" class="btn btn-success">Save</button>-->
-                                <!--                                                                </div>-->
-                                <!--&lt;!&ndash;                                                                <div class="form-group col-md-3">&ndash;&gt;-->
-                                <!--&lt;!&ndash;                                                                    <button type="button" id="delete_row" class="btn btn-danger">Delete Row&ndash;&gt;-->
-                                <!--&lt;!&ndash;                                                                    </button>&ndash;&gt;-->
-                                <!--&lt;!&ndash;                                                                </div>&ndash;&gt;-->
-                                <!--                                                            </div>-->
-                                <!--                                                        </div>-->
-                                <!--                                                    </div>-->
-                                <!--                                              <t t-if="job_applicant_rec.video_resumes">-->
-                                <!--                                                  <div class="form-row">-->
-                                <!--                                                    <table class="table table-bordered" >-->
-                                <!--                                                        <thead>-->
-                                <!--                                                            <tr>-->
-                                <!--                                                                <th>Video Resume</th>-->
-                                <!--                                                                <th>Demo Video</th>-->
-                                <!--                                                                <th>Action</th>-->
-                                <!--                                                            </tr>-->
-                                <!--                                                        </thead>-->
-                                <!--                                                        <tbody t-if="job_applicant_rec.video_resumes">-->
-                                <!--                                                            <tr t-foreach="job_applicant_rec.video_resumes" t-as="app">-->
-                                <!--                                                                <td><span t-esc="app.video_resumes"/></td>-->
-                                <!--                                                                <td><span t-esc="app.demo_videos"/></td>-->
-                                <!--                                                                <td>-->
-                                <!--                                                                    <button type="button" id="edit_edu" class="btn btn-success"><i class="fa fa-edit"></i></button>-->
-                                <!--                                                                    <button type="button" id="delete_edu" class="btn btn-danger"><i class="fa fa-trash"></i></button>-->
-                                <!--                                                                </td>-->
-
-                                <!--                                                            </tr>-->
-                                <!--                                                        </tbody>-->
-                                <!--                                                    </table>-->
-                                <!--                                                </div>-->
-
-                                <!--                                            </t>-->
-                                <!--                                          </div>-->
-                                <!--                                        </div>-->
-                                <!--                                      </div>-->
-
 
                                 <div class="card">
                                     <div class="card-header" id="headingTwo">
@@ -1475,101 +1318,7 @@
                                                             online application form.
                                                         </h5>
                                                     </div>
-                                                    <!--                                                    <table class="table table-bordered">-->
-                                                    <!--                                                        <thead>-->
-                                                    <!--                                                            <tr>-->
-                                                    <!--                                                                <th width="5%">Select</th>-->
-                                                    <!--                                                                <th width="10%">Level of Education</th>-->
-                                                    <!--                                                                <th width="10%">Exam</th>-->
-                                                    <!--                                                                <th width="10%">Major/Group</th>-->
-                                                    <!--                                                                <th width="10%">Board</th>-->
-                                                    <!--                                                                <th width="10%">Institute Name</th>-->
-                                                    <!--                                                                <th width="10%">Result</th>-->
-                                                    <!--                                                                <th width="10%">CGPA</th>-->
-                                                    <!--                                                                <th width="10%">Marks</th>-->
-                                                    <!--                                                                <th width="10%">Scale</th>-->
-                                                    <!--                                                                <th width="10%">Passing Year</th>-->
-                                                    <!--                                                                <th width="10%">Duration</th>-->
-                                                    <!--                                                                <th width="10%">Achievement</th>-->
-                                                    <!--                                                            </tr>-->
-                                                    <!--                                                        </thead>-->
-                                                    <!--                                                        <tbody id="academic_info_table_body">-->
-                                                    <!--                                                            <tr class="academic_info_table_body_row" id="academic_info_table_body_row">-->
-                                                    <!--                                                                <td><input type="checkbox" name="record"/></td>-->
-                                                    <!--                                                                <td>-->
-                                                    <!--                                                                    <select name="level_of_education" id="level_of_education" class="form-control input-sm" onchange="changeStatusGroup()">-->
-                                                    <!--                                                                        <option value="">&#45;&#45; Select Level of Education &#45;&#45;</option>-->
-                                                    <!--                                                                        <option value="psc" >PSC/5</option>-->
-                                                    <!--                                                                        <option value="jsc">JSC/JDC/8 pass</option>-->
-                                                    <!--                                                                        <option value="secondary">Secondary</option>-->
-                                                    <!--                                                                        <option value="higher_secondary">Higher Secondary</option>-->
-                                                    <!--                                                                        <option value="diploma">Diploma</option>-->
-                                                    <!--                                                                        <option value="bachelor">Bachelor/Honors</option>-->
-                                                    <!--                                                                        <option value="masters">Masters</option>-->
-                                                    <!--                                                                        <option value="phd">PhD (Doctor of Philosophy)</option>-->
-                                                    <!--                                                                    </select>-->
-                                                    <!--                                                                </td>-->
-                                                    <!--                                                                <td>-->
-                                                    <!--                                                                    <input type="text" id="exam_degree_title_name" class="form-control" name="exam_degree_title_name" placeholder="Exam Degree Title Name"/>-->
-                                                    <!--                                                                </td>-->
-                                                    <!--                                                                <td>-->
-                                                    <!--                                                                    <input type="text" id="concentration_major_group_name" class="form-control" name="concentration_major_group_name" placeholder="Concentration/Major/Group Name"/>-->
-                                                    <!--                                                                </td>-->
-                                                    <!--        &lt;!&ndash;                                                        <td>&ndash;&gt;-->
-                                                    <!--        &lt;!&ndash;                                                            <select name="board_name" class="form-control input-sm">&ndash;&gt;-->
-                                                    <!--        &lt;!&ndash;                                                                <option value="">&#45;&#45; Select Board Name &#45;&#45;</option>&ndash;&gt;-->
-                                                    <!--        &lt;!&ndash;                                                                <option value="barishal">Barishal</option>&ndash;&gt;-->
-                                                    <!--        &lt;!&ndash;                                                                <option value="chattogram">Chattogram</option>&ndash;&gt;-->
-                                                    <!--        &lt;!&ndash;                                                                <option value="cumilla">Cumilla</option>&ndash;&gt;-->
-                                                    <!--        &lt;!&ndash;                                                                <option value="dhaka">Dhaka</option>&ndash;&gt;-->
-                                                    <!--        &lt;!&ndash;                                                                <option value="dinajpur">Dinajpur</option>&ndash;&gt;-->
-                                                    <!--        &lt;!&ndash;                                                                <option value="rajshahi">Rajshahi</option>&ndash;&gt;-->
-                                                    <!--        &lt;!&ndash;                                                                <option value="jashore">Jashore</option>&ndash;&gt;-->
-                                                    <!--        &lt;!&ndash;                                                                <option value="sylhet">Sylhet</option>&ndash;&gt;-->
-                                                    <!--        &lt;!&ndash;                                                                <option value="mymensingh">Mymensingh</option>&ndash;&gt;-->
-                                                    <!--        &lt;!&ndash;                                                                <option value="madrasha">Madrasha</option>&ndash;&gt;-->
-                                                    <!--        &lt;!&ndash;                                                                <option value="technical">Technical</option>&ndash;&gt;-->
-                                                    <!--        &lt;!&ndash;                                                            </select>&ndash;&gt;-->
-                                                    <!--        &lt;!&ndash;                                                        </td>&ndash;&gt;-->
-                                                    <!--                                                                <td>-->
-                                                    <!--                                                                    <input type="text" id="board_name" class="form-control" name="board_name" placeholder="Board Name"/>-->
-                                                    <!--                                                                </td>-->
-                                                    <!--                                                                <td>-->
-                                                    <!--                                                                    <input type="text" id="institute_name" class="form-control" name="institute_name" placeholder="Institute Name"/>-->
-                                                    <!--                                                                </td>-->
-                                                    <!--                                                                <td>-->
-                                                    <!--                                                                    <select name="result" id="result" class="form-control input-sm" onchange="changeStatus()">-->
-                                                    <!--                                                                        <option value="">&#45;&#45; Select Result &#45;&#45;</option>-->
-                                                    <!--                                                                        <option value="first_division">First Division/Class</option>-->
-                                                    <!--                                                                        <option value="second_division">Second Division/Class</option>-->
-                                                    <!--                                                                        <option value="third_division">Third Division/Class</option>-->
-                                                    <!--                                                                        <option value="grade">Grade</option>-->
-                                                    <!--                                                                        <option value="enrolled">Enrolled</option>-->
-                                                    <!--                                                                        <option value="appeared">Appeared</option>-->
-                                                    <!--                                                                        <option value="awarded">Awarded</option>-->
-                                                    <!--                                                                    </select>-->
-                                                    <!--                                                                </td>-->
-                                                    <!--                                                                <td>-->
-                                                    <!--                                                                    <input type="text" id="cgpa" class="form-control" name="cgpa" placeholder="CGPA"/>-->
-                                                    <!--                                                                </td>-->
-                                                    <!--                                                                <td>-->
-                                                    <!--                                                                    <input type="text" id="mark" class="form-control" name="mark" placeholder="Marks"/>-->
-                                                    <!--                                                                </td>-->
-                                                    <!--                                                                <td>-->
-                                                    <!--                                                                    <input type="text" id="scale" class="form-control" name="scale" placeholder="Scale"/>-->
-                                                    <!--                                                                </td>-->
-                                                    <!--                                                                <td>-->
-                                                    <!--                                                                    <input type="text" id="passing_year" class="form-control" name="passing_year" placeholder="2021"/>-->
-                                                    <!--                                                                </td>-->
-                                                    <!--                                                                <td>-->
-                                                    <!--                                                                    <input type="text" id="duration" class="form-control" name="duration" placeholder="2/3/4 Years"/>-->
-                                                    <!--                                                                </td>-->
-                                                    <!--                                                                <td>-->
-                                                    <!--                                                                    <input type="text" id="achievement" class="form-control" name="achievement" placeholder="Achievement"/>-->
-                                                    <!--                                                                </td>-->
-                                                    <!--                                                            </tr>-->
-                                                    <!--                                                        </tbody>-->
-                                                    <!--                                                    </table>-->
+
                                                     <form id="job_applicant_edu_form"
                                                           action="/my/jobs/account/edu" method="POST"
                                                           enctype="multipart/form-data">
@@ -1831,15 +1580,6 @@
                                                                     <td width="40%"
                                                                         style="padding:2px;border-bottom:1px solid #F2F9FF;"></td>
                                                                 </tr>
-                                                                <!--                                                            <tr>-->
-                                                                <!--                                                                <td width="20%" height="36" style="border-right:1px solid #F2F9FF;padding:2px;border-bottom:1px solid #F2F9FF;"><div class="allFieldName"><label for="certificate">Certificate</label> </div></td>-->
-                                                                <!--                                                                <td width="40%" style="padding:2px;border-bottom:1px solid #F2F9FF;">-->
-                                                                <!--                    &lt;!&ndash;                                                                <input name="video_resume" type="text" id="video_resume" class="validate[]" size="50"/>&ndash;&gt;-->
-                                                                <!--                    &lt;!&ndash;                                                                 <input type="hidden" name="resume_video" class="hidden" value="1"/>&ndash;&gt;-->
-                                                                <!--                                                                    <input type="file"  name="certificate" class="form-control-file" />-->
-                                                                <!--                                                                </td>-->
-                                                                <!--                                                                <td width="40%" style="padding:2px;border-bottom:1px solid #F2F9FF;"> </td>-->
-                                                                <!--                                                            </tr>-->
 
                                                             </table>
                                                         </div>
@@ -1856,10 +1596,6 @@
                                                                             data-target="#myModal">Save
                                                                     </button>
                                                                 </div>
-                                                                <!--                                                                <div class="form-group col-md-3">-->
-                                                                <!--                                                                    <button type="button" id="delete_row" class="btn btn-danger">Delete Row-->
-                                                                <!--                                                                    </button>-->
-                                                                <!--                                                                </div>-->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1934,13 +1670,6 @@
                                                                             <span t-esc="app.achievement"/>
                                                                         </td>
                                                                         <td>
-                                                                            <!--                                                                                    <button type="button"-->
-                                                                            <!--                                                                                            class="btn btn-primary"-->
-                                                                            <!--                                                                                            t-attf-value="app.id"-->
-                                                                            <!--                                                                                            data-toggle="modal"-->
-                                                                            <!--                                                                                            data-target=".bd-example-modal-xl">-->
-                                                                            <!--                                                                                        <i class="fa fa-edit"></i>-->
-                                                                            <!--                                                                                    </button>-->
                                                                             <button type="button"
                                                                                     onclick='eduDelete(this);'
                                                                                     id="delete_edu"
@@ -1971,7 +1700,6 @@
                                                                               method="POST"
                                                                               enctype="multipart/form-data">
                                                                             <div class="form-row">
-                                                                                <!--                                                                                        <t t-if="job_applicant_rec.job_applicant_education_info">-->
                                                                                 <table class="editTable"
                                                                                        id="edu_table"
                                                                                        width="100%"
@@ -2319,16 +2047,6 @@
                                     </div>
                                 </div>
 
-                                <!--                                                <div class="form-group col-md-12">-->
-                                <!--                                                    <div class="checkbox-card">-->
-                                <!--                                                        <div class="checkbox">-->
-                                <!--                                                            <label>-->
-                                <!--                                                                <input type="checkbox" class="checkme"/>-->
-                                <!--                                                                This is a Publication Information (if any)-->
-                                <!--                                                            </label>-->
-                                <!--                                                        </div>-->
-                                <!--                                                    </div>-->
-                                <!--                                                </div>-->
                                 <div class="card">
                                     <div class="card-header" id="headingThree">
                                         <h2 class="mb-0">
@@ -2417,12 +2135,6 @@
                                                     <div class="form-row">
                                                         <div class="form-group col-md-7">
                                                             <div class="form-row button-space">
-                                                                <!--                                                                <div class="form-group col-md-4">-->
-                                                                <!--                                                                    <button type="button" id="add_row_article" class="btn btn-success">Add Publication Info</button>-->
-                                                                <!--                                                                </div>-->
-                                                                <!--                                                                <div class="form-group col-md-3">-->
-                                                                <!--                                                                    <button type="button" id="delete_row_article" class="btn btn-danger">Delete Row</button>-->
-                                                                <!--                                                                </div>-->
                                                                 <div class="form-group col-md-4">
                                                                     <button type="button" id="article_save"
                                                                             class="btn btn-success"
@@ -2459,8 +2171,6 @@
                                                                     <tr>
                                                                         <th>Publication/Research/Journal</th>
                                                                         <th>Title with Author(s)</th>
-                                                                        <!--                                                                        <th>Vol. Number</th>-->
-                                                                        <!--                                                                        <th>Number of Page</th>-->
                                                                         <th>Publication Date</th>
                                                                         <th>Country</th>
                                                                         <th>Action</th>
@@ -2477,8 +2187,6 @@
                                                                         <td>
                                                                             <span t-esc="app.article_author"/>
                                                                         </td>
-                                                                        <!--                                                                        <td><span t-esc="app.vol_no"/></td>-->
-                                                                        <!--                                                                        <td><span t-esc="app.page_no"/></td>-->
                                                                         <td>
                                                                             <span t-esc="app.article_publication_date"/>
                                                                         </td>
@@ -2486,10 +2194,7 @@
                                                                             <span t-esc="app.publication_country"/>
                                                                         </td>
                                                                         <td>
-                                                                            <!--                                                                                    <button type="button" id="edit_edu"-->
-                                                                            <!--                                                                                            class="btn btn-success">-->
-                                                                            <!--                                                                                        <i class="fa fa-edit"></i>-->
-                                                                            <!--                                                                                    </button>-->
+
                                                                             <button type="button"
                                                                                     onclick='articleDelete(this);'
                                                                                     id="delete_edu"
@@ -2589,13 +2294,6 @@
                                                            id="conference_all_row_data"/>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-7">
-                                                            <!--                                                                    <div class="form-row button-space">-->
-                                                            <!--                                                                        <div class="form-group col-md-4">-->
-                                                            <!--                                                                            <button type="button" id="add_row_conference" class="btn btn-success">Add Conference</button>-->
-                                                            <!--                                                                        </div>-->
-                                                            <!--                                                                        <div class="form-group col-md-3">-->
-                                                            <!--                                                                            <button type="button" id="delete_row_conference" class="btn btn-danger">Delete Row</button>-->
-                                                            <!--                                                                        </div>-->
                                                             <div class="form-group col-md-4">
                                                                 <button type="button" id="conference_save"
                                                                         class="btn btn-success"
@@ -2647,9 +2345,6 @@
                                                                     <td>
                                                                         <span t-esc="app.conference_author"/>
                                                                     </td>
-                                                                    <!--                                                                            <td>-->
-                                                                    <!--                                                                                <span t-esc="app.conference_page_no"/>-->
-                                                                    <!--                                                                            </td>-->
                                                                     <td>
                                                                         <span t-esc="app.conference_article_publication_date"/>
                                                                     </td>
@@ -2657,10 +2352,6 @@
                                                                         <span t-esc="app.conference_publication_country"/>
                                                                     </td>
                                                                     <td>
-                                                                        <!--                                                                                <button type="button" id="edit_edu"-->
-                                                                        <!--                                                                                        class="btn btn-success">-->
-                                                                        <!--                                                                                    <i class="fa fa-edit"></i>-->
-                                                                        <!--                                                                                </button>-->
                                                                         <button type="button" id="delete_edu"
                                                                                 onclick='conferenceDelete(this);'
                                                                                 class="btn btn-danger"
@@ -3311,142 +3002,6 @@
                                     </div>
                                 </div>
 
-                                <!--                                    <div class="accordion-item">-->
-                                <!--                                        <h2 class="accordion-header" id="headingTen">-->
-                                <!--                                            <button class="accordion-button"-->
-                                <!--                                                    style="color: #0c63e4; background-color: #e7f1ff;" type="button"-->
-                                <!--                                                    data-bs-toggle="collapse" data-bs-target="#collapseTen"-->
-                                <!--                                                    aria-expanded="true" aria-controls="collapseTen">-->
-                                <!--                                                Professional Certificate/Degree-->
-                                <!--                                            </button>-->
-                                <!--                                        </h2>-->
-                                <!--                                        <div id="collapseTen" class="accordion-collapse collapse show"-->
-                                <!--                                             aria-labelledby="headingTen" data-bs-parent="#accordionExample">-->
-                                <!--                                            <div class="accordion-body">-->
-
-                                <!--                                                <div class="form-row">-->
-                                <!--                                                    <div>-->
-                                <!--                                                        <div class="form-group col-md-12">-->
-                                <!--                                                            <h5>* Please start with most recent Certification</h5>-->
-                                <!--                                                        </div>-->
-                                <!--                                                        <form id="job_applicant_certification_form"-->
-                                <!--                                                              action="/my/jobs/account/certification" method="POST"-->
-                                <!--                                                              enctype="multipart/form-data">-->
-                                <!--                                                            <table class="table table-bordered">-->
-                                <!--                                                                <thead>-->
-                                <!--                                                                    <tr>-->
-                                <!--                                                                        <th>Certification/Degree</th>-->
-                                <!--                                                                        <th>Institute Name</th>-->
-                                <!--                                                                        <th>Company Location</th>-->
-                                <!--                                                                        <th>From</th>-->
-                                <!--                                                                        <th>To</th>-->
-                                <!--                                                                        <th>Concentration/Major</th>-->
-                                <!--                                                                    </tr>-->
-                                <!--                                                                </thead>-->
-                                <!--                                                                <tbody id="certification_info_table_body">-->
-                                <!--                                                                    <tr class="certification_info_table_body_row"-->
-                                <!--                                                                        id="certification_info_table_body_row">-->
-                                <!--                                                                        <td>-->
-                                <!--                                                                            <input type="text" id="certification" class="form-control" name="certification" placeholder="Certification"/>-->
-                                <!--                                                                        </td>-->
-                                <!--                                                                        <td>-->
-                                <!--                                                                            <input type="text" id="degree_institute_name" class="form-control" name="degree_institute_name" placeholder="Ex. Daffodil International University"/>-->
-                                <!--                                                                        </td>-->
-                                <!--                                                                        <td>-->
-                                <!--                                                                            <input type="text" id="degree_company_location" class="form-control" name="degree_company_location" placeholder="Ex. House-11,Road-14(new), Dhanmondhi, Dhaka"/>-->
-                                <!--                                                                        </td>-->
-                                <!--                                                                        <td>-->
-                                <!--                                                                            <input type="text" id="degree_start_date" class="form-control" name="degree_start_date" placeholder="Ex. 24/09/2021"/>-->
-                                <!--                                                                        </td>-->
-                                <!--                                                                        <td>-->
-                                <!--                                                                            <input type="text" id="degree_to_date" class="form-control" name="degree_to_date" placeholder="Ex. 24/09/2021"/>-->
-                                <!--                                                                        </td>-->
-                                <!--                                                                        <td>-->
-                                <!--                                                                            <input type="text" id="degree_concentration_major_name" class="form-control" name="degree_concentration_major_name" placeholder="Ex. IT/CSE/SWE"/>-->
-                                <!--                                                                        </td>-->
-                                <!--                                                                    </tr>-->
-                                <!--                                                                </tbody>-->
-                                <!--                                                            </table>-->
-                                <!--                                                        </form>-->
-                                <!--                                                        <input type="hidden" name="certification_all_row_data"-->
-                                <!--                                                               id="certification_all_row_data"/>-->
-                                <!--                                                        <div class="form-row">-->
-                                <!--                                                            <div class="form-group col-md-7">-->
-                                <!--                                                                <div class="form-row button-space">-->
-                                <!--                                                                    &lt;!&ndash;                                                                        <div class="form-group col-md-4">&ndash;&gt;-->
-                                <!--                                                                    &lt;!&ndash;                                                                            <button type="button" id="add_row_certification" class="btn btn-success">Add Certification</button>&ndash;&gt;-->
-                                <!--                                                                    &lt;!&ndash;                                                                        </div>&ndash;&gt;-->
-                                <!--                                                                    &lt;!&ndash;                                                                        <div class="form-group col-md-3">&ndash;&gt;-->
-                                <!--                                                                    &lt;!&ndash;                                                                            <button type="button" id="delete_row_certification" class="btn btn-danger">Delete Row</button>&ndash;&gt;-->
-                                <!--                                                                    &lt;!&ndash;                                                                        </div>&ndash;&gt;-->
-                                <!--                                                                    <div class="form-group col-md-4">-->
-                                <!--                                                                        <button type="button" id="certification_save"-->
-                                <!--                                                                                class="btn btn-success">Save-->
-                                <!--                                                                        </button>-->
-                                <!--                                                                    </div>-->
-                                <!--                                                                </div>-->
-                                <!--                                                            </div>-->
-                                <!--                                                        </div>-->
-                                <!--                                                        <t t-if="job_applicant_rec.job_certification_id">-->
-
-                                <!--                                                            <div class="form-row">-->
-                                <!--                                                                <table class="table table-bordered">-->
-                                <!--                                                                    <thead>-->
-                                <!--                                                                        <tr>-->
-                                <!--                                                                            <th>Certification/Degree</th>-->
-                                <!--                                                                            <th>Institute Name</th>-->
-                                <!--                                                                            &lt;!&ndash;                                                                                        <th>Company Location</th>&ndash;&gt;-->
-                                <!--                                                                            <th>From</th>-->
-                                <!--                                                                            <th>To</th>-->
-                                <!--                                                                            <th>Concentration/Major</th>-->
-                                <!--                                                                            <th>Action</th>-->
-                                <!--                                                                        </tr>-->
-                                <!--                                                                    </thead>-->
-                                <!--                                                                    <tbody t-if="job_applicant_rec.job_certification_id">-->
-                                <!--                                                                        <tr t-foreach="job_applicant_rec.job_certification_id"-->
-                                <!--                                                                            t-as="app">-->
-                                <!--                                                                            <input type="hidden" id="eee"-->
-                                <!--                                                                                       t-att-value="app.id"/>-->
-                                <!--                                                                            <td>-->
-                                <!--                                                                                <span t-esc="app.certification"/>-->
-                                <!--                                                                            </td>-->
-                                <!--                                                                            <td>-->
-                                <!--                                                                                <span t-esc="app.degree_institute_name"/>-->
-                                <!--                                                                            </td>-->
-                                <!--                                                                            <td>-->
-                                <!--                                                                                <span t-esc="app.degree_start_date"/>-->
-                                <!--                                                                            </td>-->
-                                <!--                                                                            <td>-->
-                                <!--                                                                                <span t-esc="app.degree_to_date"/>-->
-                                <!--                                                                            </td>-->
-                                <!--                                                                            <td>-->
-                                <!--                                                                                <span t-esc="app.degree_concentration_major_name"/>-->
-                                <!--                                                                            </td>-->
-                                <!--                                                                            <td>-->
-                                <!--&lt;!&ndash;                                                                                <button type="button" id="edit_edu"&ndash;&gt;-->
-                                <!--&lt;!&ndash;                                                                                        class="btn btn-success">&ndash;&gt;-->
-                                <!--&lt;!&ndash;                                                                                    <i class="fa fa-edit"></i>&ndash;&gt;-->
-                                <!--&lt;!&ndash;                                                                                </button>&ndash;&gt;-->
-                                <!--                                                                                <button type="button" id="delete_edu"-->
-                                <!--                                                                                        onclick='degreeDelete(this);'-->
-                                <!--                                                                                        class="btn btn-danger">-->
-                                <!--                                                                                    <i class="fa fa-trash"></i>-->
-                                <!--                                                                                </button>-->
-                                <!--                                                                            </td>-->
-
-                                <!--                                                                        </tr>-->
-                                <!--                                                                    </tbody>-->
-                                <!--                                                                </table>-->
-                                <!--                                                            </div>-->
-
-                                <!--                                                        </t>-->
-                                <!--                                                    </div>-->
-                                <!--                                                </div>-->
-                                <!--                                            </div>-->
-
-                                <!--                                        </div>-->
-                                <!--                                    </div>-->
-
                                 <div class="card">
                                     <div class="card-header" id="headingNine">
                                         <h2 class="mb-0">
@@ -3976,240 +3531,6 @@
                                     </div>
                                 </div>
 
-                                <!--                                     <div class="accordion-item">-->
-                                <!--                                        <h2 class="accordion-header" id="headingSam">-->
-                                <!--                                          <button class="accordion-button collapsed" style="color: #0c63e4; background-color: #e7f1ff;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSam" aria-expanded="false" aria-controls="collapseSam">-->
-                                <!--                                            Social Media Information (If any)-->
-                                <!--                                          </button>-->
-                                <!--                                        </h2>-->
-                                <!--                                        <div id="collapseSam" class="accordion-collapse collapse" aria-labelledby="headingSam" data-bs-parent="#accordionExample">-->
-                                <!--                                          <div class="accordion-body">-->
-                                <!--                                              <div class="form-row">-->
-                                <!--                                                  <div class="form-group col-md-6">-->
-                                <!--                                                        <label for="linkedin_link" class="form-label">Linkedin Id</label>-->
-                                <!--                                                        <t t-if="job_applicant_rec.linkedin_link">-->
-                                <!--                                                               <input type="text" id="linkedin_link" class="form-control" name="linkedin_link" t-att-value="job_applicant_rec['linkedin_link']" placeholder="Linkedin Id" />-->
-                                <!--                                                           </t>-->
-                                <!--                                                           <t t-else="">-->
-                                <!--                                                               <input type="text" id="linkedin_link" class="form-control" name="linkedin_link" placeholder="Linkedin Link"/>-->
-                                <!--                                                           </t>-->
-                                <!--                                                    </div>-->
-                                <!--                                                    <div class="form-group col-md-6">-->
-                                <!--                                                        <label for="facebook_link" class="form-label">Facebook Id</label>-->
-                                <!--                                                        <t t-if="job_applicant_rec.facebook_link">-->
-                                <!--                                                              <input type="text" class="form-control" id="facebook_link" name="facebook_link" t-att-value="job_applicant_rec['facebook_link']" placeholder="Facebook Id"/>-->
-                                <!--                                                           </t>-->
-                                <!--                                                           <t t-else="">-->
-                                <!--                                                              <input type="text" class="form-control" id="facebook_link" name="facebook_link"  placeholder="Facebook Link"/>-->
-                                <!--                                                           </t>-->
-                                <!--                                                    </div>-->
-                                <!--                                                    <div class="form-group col-md-6">-->
-                                <!--                                                        <label for="google_site_link" class="form-label">Google site Id</label>-->
-                                <!--                                                       <t t-if="job_applicant_rec.google_site_link">-->
-                                <!--                                                               <input type="text" class="form-control" id="google_site_link" name="google_site_link" t-att-value="job_applicant_rec['google_site_link']" placeholder="Google site Id"/>-->
-                                <!--                                                           </t>-->
-                                <!--                                                           <t t-else="">-->
-                                <!--                                                              <input type="text" class="form-control" id="google_site_link" name="google_site_link" placeholder="Google site Link"/>-->
-                                <!--                                                           </t>-->
-                                <!--                                                    </div>-->
-                                <!--                                                    <div class="form-group col-md-6">-->
-                                <!--                                                        <label for="youtube_link" class="form-label">Youtube Id</label>-->
-                                <!--                                                       <t t-if="job_applicant_rec.youtube_link">-->
-                                <!--                                                                <input type="text" t-att-value="job_applicant_rec['youtube_link']" id="youtube_link" class="form-control" name="youtube_link" placeholder="Youtube Id" />-->
-                                <!--                                                           </t>-->
-                                <!--                                                           <t t-else="">-->
-                                <!--                                                                <input type="text" id="youtube_link" class="form-control" name="youtube_link" placeholder="Youtube Link"/>-->
-                                <!--                                                           </t>-->
-                                <!--                                                    </div>-->
-                                <!--                                                    <div class="form-group col-md-6">-->
-                                <!--                                                        <label for="twitter_link" class="form-label">Twitter Id</label>-->
-                                <!--                                                        <t t-if="job_applicant_rec.twitter_link">-->
-                                <!--                                                               <input type="text" id="twitter_link" name="twitter_link" class="form-control" t-att-value="job_applicant_rec['twitter_link']" placeholder="Twitter Id" />-->
-                                <!--                                                           </t>-->
-                                <!--                                                           <t t-else="">-->
-                                <!--                                                               <input type="text" id="twitter_link" name="twitter_link" class="form-control" placeholder="Twitter Link"/>-->
-                                <!--                                                           </t>-->
-                                <!--                                                    </div>-->
-                                <!--                                                    <div class="form-group col-md-6">-->
-                                <!--                                                        <label for="instagram_link" class="form-label">Instagram Id</label>-->
-                                <!--                                                        <t t-if="job_applicant_rec.instagram_link">-->
-                                <!--                                                               <input type="text" id="instagram_link" name="instagram_link" class="form-control" t-att-value="job_applicant_rec['instagram_link']" placeholder="Instagram Link"/>-->
-                                <!--                                                           </t>-->
-                                <!--                                                           <t t-else="">-->
-                                <!--                                                             <input type="text" id="instagram_link" name="instagram_link" class="form-control" placeholder="Instagram link"/>-->
-                                <!--                                                           </t>-->
-                                <!--                                                    </div>-->
-                                <!--                                                    <div class="form-group col-md-6">-->
-                                <!--                                                        <label for="website_link" class="form-label">Website Id</label>-->
-                                <!--                                                        <t t-if="job_applicant_rec.website_link">-->
-                                <!--                                                            <input type="text" id="website_link" name="website_link" class="form-control" t-att-value="job_applicant_rec['website_link']" placeholder="Website Link"/>-->
-                                <!--                                                        </t>-->
-                                <!--                                                        <t t-else="">-->
-                                <!--                                                            <input type="text" id="website_link" name="website_link" class="form-control" placeholder="Website Link"/>-->
-                                <!--                                                        </t>-->
-                                <!--                                                    </div>-->
-                                <!--                                              </div>-->
-                                <!--                                          </div>-->
-                                <!--                                        </div>-->
-                                <!--                                    </div>-->
-
-                                <!--                                        <div class="accordion-item">-->
-                                <!--                                            <h2 class="accordion-header" id="flush-headingTenThrees">-->
-                                <!--                                                <button class="accordion-button collapsed"-->
-                                <!--                                                        style="color: #0c63e4; background-color: #e7f1ff;" type="button"-->
-                                <!--                                                        data-bs-toggle="collapse"-->
-                                <!--                                                        data-bs-target="#flush-collapseTenThrees"-->
-                                <!--                                                        aria-expanded="false" aria-controls="flush-collapseTenThrees">-->
-                                <!--                                                    Video Resume and Demo Video-->
-                                <!--                                                </button>-->
-                                <!--                                            </h2>-->
-                                <!--                                            <div id="flush-collapseTenThrees" class="accordion-collapse collapse"-->
-                                <!--                                                 aria-labelledby="flush-headingTenThrees"-->
-                                <!--                                                 data-bs-parent="#accordionFlushExample">-->
-                                <!--                                                <div class="accordion-body">-->
-
-                                <!--                                                    <fieldset class="scheduler-border">-->
-                                <!--                                                        <legend class="scheduler-border">-->
-                                <!--                                                            <strong>Video Résumé and Demo class video link</strong>-->
-                                <!--                                                        </legend>-->
-                                <!--                                                        <form id="job_applicant_video_form"-->
-                                <!--                                                              action="/my/jobs/account/video" method="POST"-->
-                                <!--                                                              enctype="multipart/form-data">-->
-                                <!--                                                            <table width="100%" height="94" align="center"-->
-                                <!--                                                                   cellpadding="0" cellspacing="0" bgcolor="#FFFFFF"-->
-                                <!--                                                                   style="border: #F2F9FF solid 1px;-moz-border-radius: 5px 5px 5px 5px;-webkit-border-radius: 5px 5px 5px 5px;">-->
-                                <!--                                                                <tr>-->
-                                <!--                                                                    <td width="30%" height="36"-->
-                                <!--                                                                        style="border-right:1px solid #F2F9FF;padding:2px;border-bottom:1px solid #F2F9FF;">-->
-                                <!--                                                                        <div class="allFieldName">-->
-                                <!--                                                                            <label for="video_resumes">Video Résumé Link-->
-                                <!--                                                                            </label>-->
-                                <!--                                                                        </div>-->
-                                <!--                                                                    </td>-->
-                                <!--                                                                    <td width="60%"-->
-                                <!--                                                                        style="padding:2px;border-bottom:1px solid #F2F9FF;">-->
-                                <!--                                                                        <input name="video_resumes" type="url"-->
-                                <!--                                                                               id="video_resumes" class="validate[]"-->
-                                <!--                                                                               placeholder="https://www.youtube.com/"/>-->
-                                <!--                                                                        &lt;!&ndash;                                                                 <input type="hidden" name="resume_video" class="hidden" value="1"/>&ndash;&gt;-->
-                                <!--                                                                        &lt;!&ndash;                                                                <input type="file"  name="video_resume" class="form-control-file" accept="video/*"/>&ndash;&gt;-->
-                                <!--                                                                    </td>-->
-                                <!--                                                                    <td width="10%"-->
-                                <!--                                                                        style="padding:2px;border-bottom:1px solid #F2F9FF;"></td>-->
-                                <!--                                                                </tr>-->
-                                <!--                                                                <tr>-->
-                                <!--                                                                    <td width="30%" height="36"-->
-                                <!--                                                                        style="border-right:1px solid #F2F9FF;padding:2px;border-bottom:1px solid #F2F9FF;">-->
-                                <!--                                                                        <div class="allFieldName">-->
-                                <!--                                                                            <label for="emo_videos">Demo Class Video-->
-                                <!--                                                                                Link-->
-                                <!--                                                                            </label>-->
-                                <!--                                                                        </div>-->
-                                <!--                                                                    </td>-->
-                                <!--                                                                    <td width="40%"-->
-                                <!--                                                                        style="padding:2px;border-bottom:1px solid #F2F9FF;">-->
-                                <!--                                                                        <input name="demo_videos" type="url"-->
-                                <!--                                                                               id="demo_videos" class="validate[]"-->
-                                <!--                                                                               placeholder="https://www.youtube.com/"/>-->
-                                <!--                                                                        &lt;!&ndash;                                                                 <input type="hidden" name="class_demo_video" class="hidden" value="1"/>&ndash;&gt;-->
-                                <!--                                                                        &lt;!&ndash;                                                                <input type="file"  name="demo_video" class="form-control-file" accept="video/*"/>&ndash;&gt;-->
-                                <!--                                                                    </td>-->
-                                <!--                                                                    <td width="10%"-->
-                                <!--                                                                        style="padding:2px;border-bottom:1px solid #F2F9FF;"></td>-->
-                                <!--                                                                </tr>-->
-                                <!--                                                            </table>-->
-                                <!--                                                        </form>-->
-                                <!--                                                    </fieldset>-->
-                                <!--                                                    <div class="mt-3 text-center">-->
-                                <!--                                                        <button type="submit" id="video_save"-->
-                                <!--                                                                class="btn btn-primary">Save-->
-                                <!--                                                        </button>-->
-                                <!--                                                    </div>-->
-                                <!--                                                    <t t-if="job_applicant_rec.video_resumes">-->
-                                <!--                                                        <table class="table table-bordered">-->
-                                <!--                                                            <thead>-->
-                                <!--                                                                <tr>-->
-                                <!--                                                                    <th>Video Resume</th>-->
-                                <!--                                                                    <th>Demo Video</th>-->
-                                <!--                                                                    &lt;!&ndash;                                                                <th width="10%">Action</th>&ndash;&gt;-->
-                                <!--                                                                </tr>-->
-                                <!--                                                            </thead>-->
-                                <!--                                                            <tbody t-if="job_applicant_rec.video_resumes">-->
-                                <!--                                                                <tr t-foreach="job_applicant_rec" t-as="app">-->
-                                <!--                                                                    <td>-->
-                                <!--                                                                        <span t-esc="app.video_resumes"/>-->
-                                <!--                                                                    </td>-->
-                                <!--                                                                    <td>-->
-                                <!--                                                                        <span t-esc="app.demo_videos"/>-->
-                                <!--                                                                    </td>-->
-                                <!--                                                                    &lt;!&ndash;                                                                <td>&ndash;&gt;-->
-                                <!--                                                                    &lt;!&ndash;&lt;!&ndash;                                                                    <button type="button" id="edit_edu" class="btn btn-success"><i class="fa fa-edit"></i></button>&ndash;&gt;&ndash;&gt;-->
-                                <!--                                                                    &lt;!&ndash;                                                                    <button type="button" id="delete_edu" class="btn btn-danger"><i class="fa fa-trash"></i></button>&ndash;&gt;-->
-                                <!--                                                                    &lt;!&ndash;                                                                </td>&ndash;&gt;-->
-
-                                <!--                                                                </tr>-->
-                                <!--                                                            </tbody>-->
-                                <!--                                                        </table>-->
-
-                                <!--                                                    </t>-->
-
-
-                                <!--                                                </div>-->
-                                <!--                                            </div>-->
-                                <!--                                        </div>-->
-
-                                <!--                                        <t t-if="job_applicant_rec.job_applicant_ids">-->
-                                <!--                                            <div class="accordion-item">-->
-                                <!--                                                <h2 class="accordion-header" id="flush-headingTenTwo">-->
-                                <!--                                                    <button class="accordion-button collapsed"-->
-                                <!--                                                            style="color: #0c63e4; background-color: #e7f1ff;"-->
-                                <!--                                                            type="button"-->
-                                <!--                                                            data-bs-toggle="collapse"-->
-                                <!--                                                            data-bs-target="#flush-collapseTenTwo"-->
-                                <!--                                                            aria-expanded="false" aria-controls="flush-collapseTenTwo">-->
-                                <!--                                                        Job Apply List-->
-                                <!--                                                    </button>-->
-                                <!--                                                </h2>-->
-                                <!--                                                <div id="flush-collapseTenTwo" class="accordion-collapse collapse"-->
-                                <!--                                                     aria-labelledby="flush-headingTenTwo"-->
-                                <!--                                                     data-bs-parent="#accordionFlushExample">-->
-                                <!--                                                    <div class="accordion-body">-->
-
-                                <!--                                                        <div class="form-row">-->
-                                <!--                                                            &lt;!&ndash;                                                        <div class="form-group col-md-12">&ndash;&gt;-->
-                                <!--                                                            &lt;!&ndash;                                                            <h4>Job Apply List</h4>&ndash;&gt;-->
-                                <!--                                                            &lt;!&ndash;                                                        </div>&ndash;&gt;-->
-                                <!--                                                            <table class="table table-bordered">-->
-                                <!--                                                                <thead>-->
-                                <!--                                                                    <tr>-->
-                                <!--                                                                        <th>Job Title</th>-->
-                                <!--                                                                        <th>Department</th>-->
-                                <!--                                                                        <th>Status</th>-->
-                                <!--                                                                    </tr>-->
-                                <!--                                                                </thead>-->
-                                <!--                                                                <tbody t-if="job_applicant_rec.job_applicant_ids">-->
-                                <!--                                                                    <tr t-foreach="job_applicant_rec.job_applicant_ids"-->
-                                <!--                                                                        t-as="app">-->
-                                <!--                                                                        <td>-->
-                                <!--                                                                            <span t-esc="app.job_id.name"/>-->
-                                <!--                                                                        </td>-->
-                                <!--                                                                        <td>-->
-                                <!--                                                                            <span t-esc="app.department_id.name"/>-->
-                                <!--                                                                        </td>-->
-                                <!--                                                                        <td>-->
-                                <!--                                                                            <span t-esc="app.stage_id.name"/>-->
-                                <!--                                                                        </td>-->
-                                <!--                                                                        &lt;!&ndash;                                                            <td><a t-attf-href="/survey/start/string:survey_token#{app.id}" class="btn btn-outline-primary btn-sm"><i class="fa fa-eye"> </i> </a></td>&ndash;&gt;-->
-                                <!--                                                                        &lt;!&ndash;                                                            <td><span t-esc="app.survey_id.question_and_page_ids" />''</td>&ndash;&gt;-->
-                                <!--                                                                    </tr>-->
-                                <!--                                                                </tbody>-->
-                                <!--                                                            </table>-->
-                                <!--                                                        </div>-->
-                                <!--                                                    </div>-->
-                                <!--                                                </div>-->
-                                <!--                                            </div>-->
-                                <!--                                        </t>-->
-
                                 <div class="card">
                                     <div class="card-header" id="headingTenTwo">
                                         <h2 class="mb-0">
@@ -4430,73 +3751,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--                                <t t-if="job_applicant_rec.account_move_id">-->
-                                <!--                                    <div class="card">-->
-                                <!--                                        <div class="card-header" id="headingTenThree">-->
-                                <!--                                            <h2 class="mb-0">-->
-                                <!--                                                <button class="btn btn-link btn-block text-left collapsed text-decoration-none"-->
-                                <!--                                                        type="button"-->
-                                <!--                                                        data-toggle="collapse" data-target="#collapseTenThree"-->
-                                <!--                                                        aria-expanded="false" aria-controls="collapseTenThree">-->
-                                <!--                                                    Application Fee Pay Information-->
-                                <!--                                                </button>-->
-                                <!--                                            </h2>-->
-                                <!--                                        </div>-->
-                                <!--                                        <div id="collapseTenThree" class="collapse" aria-labelledby="headingTenThree"-->
-                                <!--                                             data-parent="#accordionExample">-->
-                                <!--                                            <div class="card-body">-->
-                                <!--                                                <div class="form-row">-->
-                                <!--                                                    <table class="table table-bordered">-->
-                                <!--                                                        <thead>-->
-                                <!--                                                            <tr>-->
-                                <!--                                                                <th>Payorder No</th>-->
-                                <!--                                                                <th>Applicant</th>-->
-                                <!--                                                                <th>Position</th>-->
-                                <!--                                                                <th>Transaction No</th>-->
-                                <!--                                                                <th>Transaction Date</th>-->
-                                <!--                                                                <th>Status</th>-->
-                                <!--                                                            </tr>-->
-                                <!--                                                        </thead>-->
-                                <!--                                                        <tbody t-if="job_applicant_rec.pay_oder_info">-->
-                                <!--                                                            <tr t-foreach="job_applicant_rec.pay_oder_info"-->
-                                <!--                                                                t-as="app">-->
-                                <!--                                                                <td>-->
-                                <!--                                                                    <span t-esc="app.name"/>-->
-                                <!--                                                                </td>-->
-                                <!--                                                                <td>-->
-                                <!--                                                                    <span t-esc="app.applicant_id"-->
-                                <!--                                                                          t-field="app.applicant_id"/>-->
-                                <!--                                                                </td>-->
-                                <!--                                                                <td>-->
-                                <!--                                                                    <span t-esc="app.job_id" t-field="app.job_id"/>-->
-                                <!--                                                                </td>-->
-                                <!--                                                                <td>-->
-                                <!--                                                                    <span t-esc="app.transaction_no"/>-->
-                                <!--                                                                </td>-->
-                                <!--                                                                <td>-->
-                                <!--                                                                    <span t-esc="app.transaction_date"/>-->
-                                <!--                                                                </td>-->
-                                <!--                                                                <td>-->
-                                <!--                                                                    <t t-if="app.invoice_payment_status == 'paid'"-->
-                                <!--                                                                       style="text-align:center;,color:green;">-->
-                                <!--                                                                        <span style="color:green;">-->
-                                <!--                                                                            <b>Received</b>-->
-                                <!--                                                                        </span>-->
-                                <!--                                                                    </t>-->
-                                <!--                                                                    <t t-else="">-->
-                                <!--                                                                        <span style="color:red;">-->
-                                <!--                                                                            <b>Not Received</b>-->
-                                <!--                                                                        </span>-->
-                                <!--                                                                    </t>-->
-                                <!--                                                                </td>-->
-                                <!--                                                            </tr>-->
-                                <!--                                                        </tbody>-->
-                                <!--                                                    </table>-->
-                                <!--                                                </div>-->
-                                <!--                                            </div>-->
-                                <!--                                        </div>-->
-                                <!--                                    </div>-->
-                                <!--                                </t>-->
+
                             </div>
                         </div>
                     </div>

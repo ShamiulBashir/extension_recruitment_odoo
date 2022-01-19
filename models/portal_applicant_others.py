@@ -18,19 +18,6 @@ class JobApplicantEducation(models.Model):
     exam_degree_title_name = fields.Char(string="Exam/Degree Title")
     concentration_major_group_name = fields.Char(string="Concentration/Major/Group")
     board_name = fields.Char(string="Board")
-    # board_name = fields.Selection([
-    #     ('barishal', 'Barishal'),
-    #     ('chattogram', 'Chattogram'),
-    #     ('cumilla', 'Cumilla'),
-    #     ('dhaka', 'Dhaka'),
-    #     ('dinajpur', 'Dinajpur'),
-    #     ('rajshahi', 'Rajshahi'),
-    #     ('jashore', 'Jashore'),
-    #     ('sylhet', 'Sylhet'),
-    #     ('mymensingh', 'Mymensingh'),
-    #     ('madrasha', 'Madrasha'),
-    #     ('technical', 'Technical'),
-    # ], string='Board')
     institute_name = fields.Char(string="Institute Name")
 
     result = fields.Selection([
@@ -51,15 +38,7 @@ class JobApplicantEducation(models.Model):
     certificate = fields.Binary("Certificate", attachment=True, store=True, help="Select Certificate here")
 
     job_application_education_id = fields.Many2one(comodel_name="job.applicant", string="Education Info")
-    # hr_education_id = fields.Many2one(comodel_name="hr.applicant", string="Education Info")
     first_shortlist = fields.Many2one(comodel_name="first.shortlist", string="Shortlist Select")
-
-    # @api.model
-    # def _delete_from_db(self):
-    #
-    #     find_id = self.search([('level_of_education', '=', 'productDelete')])  # result demo.demo(1,)
-    #     print(find_id)
-    #     self.unlink(find_id.id)
 
 
 class JobApplicantExperience(models.Model):

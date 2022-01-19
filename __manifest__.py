@@ -32,7 +32,6 @@ Something about recruitment extension.
         'data/ir_sequence.xml',
         'data/config_data.xml',
         'data/extension_recruitment_data.xml',
-        # 'data/mail_template.xml',
 
         ##report
         'report/job_admit_card_report.xml',
@@ -49,7 +48,6 @@ Something about recruitment extension.
         ## View & Wizard
         'views/assets.xml',
         'views/job_view.xml',
-        # 'views/menus.xml',
         'views/website_job_view_template.xml',
         'views/website_applicant_view.xml',
         'views/job_meeting.xml',
@@ -57,13 +55,9 @@ Something about recruitment extension.
         'views/exam_mark.xml',
         'views/job_applicant_view.xml',
         'views/admit_form.xml',
-        'views/head_dean.xml',
-        'views/pay_order.xml',
-        'views/dashboard.xml',
         'views/final_shortlist.xml',
-
         ## Wizard
-        'wizards/video_show.xml',
+
     ],
     'qweb': [],
     'demo': [
