@@ -8,5 +8,4 @@ from . import hr_applicant
 from . import portal_applicant_others
 from . import head_dean
 from . import pay_order
-from . import website_page
 from . import final_shortlist
