@@ -25,7 +25,6 @@ Something about recruitment extension.
         'website_partner',
         'website_mail',
         'website_form',
-        'board',
         'web_one2many_kanban',
     ],
     'data': [

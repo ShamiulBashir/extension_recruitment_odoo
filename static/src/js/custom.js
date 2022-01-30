@@ -33,13 +33,6 @@ $("#extension_button").click(function () {
     xhttp_job_create.open("GET", url_job_create, true);
     xhttp_job_create.send();
 
-    // var data_pay = "?job_id=" + $("input[name='job_id']").val() + "&transaction_no=" + $("input[name='transaction_no']").val() + "&transaction_date=" + $("input[name='transaction_date']").val() + "&job_applicant_id=" + $("input[name='job_applicant_id']").val();
-    // const url_pay = base_url + '/create/user/payorder/' + data_pay;
-    //
-    // var xhttp_pay = new XMLHttpRequest();
-    //
-    // xhttp_pay.open("GET", url_pay, true);
-    // xhttp_pay.send();
 
 });
 
@@ -78,22 +71,6 @@ $("#position_button").click(function () {
 
 });
 
-// $('#psw, #confirm_psw').on('keyup', function () {
-//     var psw = document.getElementById("psw")
-//         , confirm_psw = document.getElementById("confirm_psw");
-//
-//     function validatePassword() {
-//         if (psw.value != confirm_psw.value) {
-//             confirm_psw.setCustomValidity("Passwords Don't Match");
-//         } else {
-//             confirm_psw.setCustomValidity('');
-//         }
-//     }
-//
-//     psw.onchange = validatePassword;
-//     confirm_psw.onkeyup = validatePassword;
-//
-// });
 
 function calculate_age_birth(birthday, show_field_name) {
     var today = new Date();
@@ -144,71 +121,6 @@ $("#admit_card_download").click(function () {
     xhttp_job_ref.send();
 });
 
-
-// $('#psw').on('keyup', function () {
-//
-//     var psw = document.getElementById("psw");
-//     var letter = document.getElementById("letter");
-//     var capital = document.getElementById("capital");
-//     var number = document.getElementById("number");
-//     var length = document.getElementById("length");
-//
-// // When the user clicks on the password field, show the message box
-//     psw.onfocus = function () {
-//         document.getElementById("message_id").style.display = "block";
-//     }
-//
-// // When the user clicks outside of the password field, hide the message box
-//     psw.onblur = function () {
-//         document.getElementById("message_id").style.display = "none";
-//     }
-//
-// // When the user starts to type something inside the password field
-//     psw.onkeyup = function () {
-//         // Validate lowercase letters
-//         var lowerCaseLetters = /[a-z]/g;
-//         if (psw.value.match(lowerCaseLetters)) {
-//             letter.classList.remove("invalid");
-//             letter.classList.add("valid");
-//         } else {
-//             letter.classList.remove("valid");
-//             letter.classList.add("invalid");
-//         }
-//
-//         // Validate capital letters
-//         var upperCaseLetters = /[A-Z]/g;
-//         if (psw.value.match(upperCaseLetters)) {
-//             capital.classList.remove("invalid");
-//             capital.classList.add("valid");
-//         } else {
-//             capital.classList.remove("valid");
-//             capital.classList.add("invalid");
-//         }
-//
-//         // Validate numbers
-//         var numbers = /[0-9]/g;
-//         if (psw.value.match(numbers)) {
-//             number.classList.remove("invalid");
-//             number.classList.add("valid");
-//         } else {
-//             number.classList.remove("valid");
-//             number.classList.add("invalid");
-//         }
-//
-//         // Validate length
-//         if (psw.value.length >= 8) {
-//             length.classList.remove("invalid");
-//             length.classList.add("valid");
-//         } else {
-//             length.classList.remove("valid");
-//             length.classList.add("invalid");
-//         }
-//     }
-//     // if ($('#psw').val()) {
-//     //   $('#message_id').html('Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters').css('color', 'green');
-//     // } else
-//     //   $('#message_id').html('Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters').css('color', 'red');
-// });
 
 
 $("#job_submit").click(function () {
@@ -542,35 +454,6 @@ function fasterPre(up) {
 $("#imageUpT").change(function () {
     fasterPre(this);
 });
-
-
-//const inpFile = document.getElementById("inpFile");
-//const previewContainer = document.getElementById("imagePreview");
-//const previewImage = previewContainer.querySelector(".image-preview__image");
-//
-//inpFile.addEventListener("change", function() {
-//    const file = this.files[0];
-//
-//    if (file) {
-//       const reader = new FileReader();
-//
-//       previewDefaultText.style.display = "none";
-//       previewImage.style.display = "block";
-//
-//       reader.addEventListener("load", function() {
-//          previewImage.setAttribute("src", thia.result);
-//       });
-//
-//       reader.readAsDateURL(file);
-//     } else {
-//       previewDefaultText.style.display = "null";
-//       previewImage.style.display = "null";
-//        previewImage.setAttribute("src", "");
-//       }
-//    }
-
-//});
-
 
 $(".foreign-box").hide();
 $(".checkme").click(function () {
@@ -1118,51 +1001,9 @@ $("#edu_save").click(function () {
 
     var xhttp_edu = new XMLHttpRequest();
 
-    // xhttp_edu.onreadystatechange = function () {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //         //Typical action to be performed when the document is ready:
-    //         var response = xhttp_edu.responseText.toString().replace(/'/g, '"');
-    //
-    //         if (response != 'None') {
-    //
-    //             var x = JSON.parse(response);
-    //             console.log(x['exam'])
-    //             console.log(x['major'])
-    //             console.log(x['institute'])
-    //             console.log(x['cgpa'])
-    //             console.log(x['mark'])
-    //             console.log(x['scale'])
-    //             console.log(x['passing_year'])
-    //             console.log(x['duration'])
-    //
-    //
-    //             $('#table_edu_body').append('<tbody><tr><td>'+ x['exam'] +'</td><td>'+ x['major'] +'</td><td>'+ x['institute'] +'</td><td>'+ x['cgpa'] +'</td><td>'+ x['mark'] +'</td><td>'+ x['scale'] +'</td><td>'+ x['passing_year'] +'</td><td>'+ x['duration'] +'</td></tr></tbody>');
-    //             // $('#table_edu_body').append('#academic_info_table_body');
-    //             // console.log('#academic_info_table_body')
-    //             // console.log(table_edu_body)
-    //             console.log(x['exam'])
-    //             console.log(x['major'])
-    //             console.log(x['institute'])
-    //             console.log(x['cgpa'])
-    //             console.log(x['mark'])
-    //             console.log(x['scale'])
-    //             console.log(x['passing_year'])
-    //             console.log(x['duration'])
-
-
-    // x.forEach(myFunction);
-    //
-    // function myFunction(item, index) {
-    //
-    // //     console.log(item['exam'])
-    // }
-    //         }
-    //     }
-    // };
-
     xhttp_edu.open("GET", url_edu, true);
     xhttp_edu.send();
-    // location.reload();
+
 
 
 });
@@ -1181,9 +1022,6 @@ $("#experience_save").click(function () {
     xhttp_experience.open("GET", url_experience, true);
     xhttp_experience.send();
 
-    // location.reload('/my/jobs/account/experience');
-    // location.reload();
-    // alert("Congrats! Please Ur Page Reload");
 });
 
 $("#reference_save").click(function () {
@@ -1200,10 +1038,6 @@ $("#reference_save").click(function () {
     xhttp_reference.open("GET", url_reference, true);
     xhttp_reference.send();
 
-    // alert("Congrats! Please Ur Page Reload");
-
-    // location.reload('/my/jobs/account/reference');
-    // location.reload();
 });
 
 $("#article_save").click(function () {
@@ -1220,10 +1054,6 @@ $("#article_save").click(function () {
     xhttp_article.open("GET", url_article, true);
     xhttp_article.send();
 
-    // alert("Congrats! Please Ur Page Reload");
-
-    // location.reload('/my/jobs/account/article');
-    // location.reload();
 
 });
 
@@ -1241,11 +1071,6 @@ $("#conference_save").click(function () {
     xhttp_article.open("GET", url_article, true);
     xhttp_article.send();
 
-    // alert("Congrats! Please Ur Page Reload");
-
-
-    // location.reload('/my/jobs/account/conference');
-    // location.reload();
 
 });
 
@@ -1263,10 +1088,6 @@ $("#training_save").click(function () {
     xhttp_training.open("GET", url_training, true);
     xhttp_training.send();
 
-    // location.reload('/my/jobs/account/training');
-    // location.reload();
-
-    // alert("Congrats! Please Ur Page Reload");
 
 });
 
@@ -1284,10 +1105,6 @@ $("#certification_save").click(function () {
     xhttp_certification.open("GET", url_certification, true);
     xhttp_certification.send();
 
-    // alert("Congrats! Please Ur Page Reload");
-
-    // location.reload('/my/jobs/account/degree');
-    // location.reload();
 
 });
 
@@ -1305,9 +1122,6 @@ $("#language_save").click(function () {
     xhttp_language.open("GET", url_language, true);
     xhttp_language.send();
 
-    // alert("Congrats! Please Ur Page Reload");
-    // location.reload('/my/jobs/account/language');
-    // location.reload();
 
 });
 
@@ -1325,10 +1139,6 @@ $("#award_save").click(function () {
     xhttp_award.open("GET", url_award, true);
     xhttp_award.send();
 
-    // alert("Congrats! Please Ur Page Reload");
-
-    // location.reload('/my/jobs/account/award');
-    // location.reload();
 
 });
 
@@ -1346,10 +1156,6 @@ $("#project_save").click(function () {
     xhttp_award.open("GET", url_award, true);
     xhttp_award.send();
 
-    // alert("Congrats! Please Ur Page Reload");
-
-    // location.reload('/my/jobs/account/project');
-    // location.reload();
 
 });
 
@@ -1367,10 +1173,6 @@ $("#publication_save").click(function () {
     xhttp_award.open("GET", url_award, true);
     xhttp_award.send();
 
-    // alert("Congrats! Please Ur Page Reload");
-
-    // location.reload('/my/jobs/account/book');
-    // location.reload();
 
 });
 
@@ -1389,10 +1191,6 @@ $("#member_save").click(function () {
     xhttp_member.open("GET", url_member, true);
     xhttp_member.send();
 
-    // alert("Congrats! Please Ur Page Reload");
-
-    // location.reload('/my/jobs/account/member');
-    // location.reload();
 
 });
 
@@ -1616,68 +1414,6 @@ function referenceDelete(ctl) {
 
 }
 
-// function productDisplay(ctl) {
-// _row = $(ctl).parents("tr");
-// var cols = _row.children("td");
-// $("#level_of_education").val($(cols[1]).select());
-// $("#exam_degree_title_name").val($(cols[2]).text());
-// $("#concentration_major_group_name").val($(cols[3]).text());
-// $("#board_name").val($(cols[4]).text());
-// $("#institute_name").val($(cols[5]).text);
-// $("#result").val($(cols[6]).select());
-// $("#cgpa").val($(cols[7]).text());
-// $("#mark").val($(cols[8]).text());
-// $("#scale").val($(cols[9]).text());
-// $("#passing_year").val($(cols[10]).text());
-// $("#duration").val($(cols[11]).text());
-// $("#achievement").val($(cols[12]).text());
-//
-// // Change Update Button Text
-// $("#edu_save").text("Update");
-//
-// }
-
-// var table = document.getElementById("table").rIndex;
-//
-// for(var i=1; i < table.rows.length; i++){
-//     table.rows[i].onclick = function() {
-//         rIndex = this.rowIndex;
-//         console.log(rIndex);
-//         document.getElementById("level_of_education").value = this.cells[1].innerHTML;
-//         document.getElementById("exam_degree_title_name").value = this.cells[2].innerHTML;
-//         document.getElementById("concentration_major_group_name").value = this.cells[3].innerHTML;
-//         document.getElementById("board_name").value = this.cells[4].innerHTML;
-//         document.getElementById("institute_name").value = this.cells[5].innerHTML;
-//         document.getElementById("result").value = this.cells[6].innerHTML;
-//         document.getElementById("cgpa").value = this.cells[7].innerHTML;
-//         document.getElementById("mark").value = this.cells[8].innerHTML;
-//         document.getElementById("scale").value = this.cells[9].innerHTML;
-//         document.getElementById("passing_year").value = this.cells[10].innerHTML;
-//         document.getElementById("duration").value = this.cells[11].innerHTML;
-//         document.getElementById("achievement").value = this.cells[12].innerHTML;
-//     };
-// }
-//
-// function editRow() {
-//     document.getElementById("level_of_education").value = this.innerHTML;
-//     document.getElementById("exam_degree_title_name").value = this.innerHTML;
-//     alert('+level_of_education+' - '+exam_degree_title_name+')
-//     document.getElementById("concentration_major_group_name").value = this.innerHTML;
-//     document.getElementById("board_name").value = this.innerHTML;
-//     document.getElementById("institute_name").value = this.innerHTML;
-//     document.getElementById("result").value = this.innerHTML;
-//     document.getElementById("cgpa").value = this.innerHTML;
-//     document.getElementById("mark").value = this.innerHTML;
-//     document.getElementById("scale").value = this.innerHTML;
-//     document.getElementById("passing_year").value = this.innerHTML;
-//     document.getElementById("duration").value = this.innerHTML;
-//     document.getElementById("achievement").value = this.innerHTML;
-// }
-
-//
-// function editTableDisplay(){
-//     document.querySelector('.editTable').setAttribute('style', 'display: block;')
-// }
 
 
 

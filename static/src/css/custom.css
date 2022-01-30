@@ -46,23 +46,6 @@
 
 }
 
-/*.image_preview {
-    width: 300px;
-    min-height:150px;
-    border: 2px solid #0000;
-    margin-top: 15px;
-
-    display:flex;
-    align-items:center;
-    justify-weight:bold;
-    color: #cccccc;
-}
-.image-preview__image{
-   display: none;
-   width:100%
-}*/
-
-
 /* The message box is shown when the user clicks on the password field */
 #message {
   display:none;
@@ -86,12 +69,6 @@
   z-index: 2;
 }
 
-/*#message p {*/
-/*  padding: 10px 35px;*/
-
-/*}*/
-
-/* Add a green text color and a checkmark when the requirements are right */
 .valid {
 }
 
